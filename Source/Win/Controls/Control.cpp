@@ -2,9 +2,8 @@
 
 namespace Goo
 {
-Control::Control() : text(""), pos(DefaultPosition()), size(DefaultPosition()) {}
-Control::Control(const std::string & text_) : text(text_), pos(DefaultPosition()), size(DefaultPosition()) {}
-Control::Control(const std::string & text, const Point & pos, const Size & size) : text(text), pos(pos), size(size) {}
+Control::Control() : pos(DefaultPosition()), size(DefaultPosition()) {}
+Control::Control(const Point & pos, const Size & size) : pos(pos), size(size) {}
 
 void Control::Create()
 {
@@ -43,11 +42,6 @@ void Control::SetParent(const Control* parent_)
 {
 	parent = parent_;
 }
-void Control::SetText(const std::string& text_)
-{
-	::SetWindowText(handle, text_.c_str());
-	text = text_;
-}
 void Control::SetBounds(const Point& pos_, const Size& size_)
 {
 	::MoveWindow(handle, pos_.x, pos_.y, size_.x, size_.y, true);
@@ -62,13 +56,14 @@ void Control::SetSize(const Size& size_)
 {
 	SetBounds(pos, size_);
 }
+
 void Control::SetFont(const Font& font_)
 {
-	::SendMessage(handle, WM_SETFONT, (WPARAM)font_.GetHandle(), TRUE);
+	::SendMessage(handle, WM_SETFONT, (WPARAM)(HFONT)(font_.GetHandle()), TRUE);
 	font = font_;
 }
 
-void Control::CreateHandle(const char* name, long style, long exStyle)
+void Control::CreateHandle(const char* name, const std::string& text, long style, long exStyle)
 {
 	if (parent) style |= WS_CHILD;
 	style |= WS_VISIBLE;
@@ -76,11 +71,11 @@ void Control::CreateHandle(const char* name, long style, long exStyle)
 	handle = ::CreateWindowEx(exStyle,
 		name, text.c_str(), style,
 		pos.x, pos.y, size.x, size.y,
-		parent ? parent->handle : NULL,
+		parent ? (HWND)(parent->handle) : NULL,
 		NULL, ::GetModuleHandle(NULL), NULL);
 
 	if (!handle) throw std::runtime_error("Failed to create handle!");
-	::SendMessage(handle, WM_SETFONT, (WPARAM)font.GetHandle(), TRUE);
+	::SendMessage(handle, WM_SETFONT, (WPARAM)(HFONT)(font.GetHandle()), TRUE);
 	::SetProp(handle, "PROP_CONTROL", this);
 }
 }

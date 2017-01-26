@@ -6,3 +6,4 @@ Note: As of right now, the only platform supported is Windows(Win32). I plan on 
 **Current TODO List:**
 * GTK+ Support
 * Win32 Custom Draw
+* Support more image formats (currently only .bmp)

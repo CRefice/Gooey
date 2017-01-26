@@ -6,8 +6,6 @@ namespace Goo
 {
 void Window::CreateControl()
 {
-	std::string text = GetText();
-
 	WNDCLASSEX wclass;
 	ZeroMemory(&wclass, sizeof(wclass));
 	wclass.cbSize = sizeof(WNDCLASSEX);
@@ -47,7 +45,7 @@ void Window::CreateControl()
 		wndStyle |= (WS_MAXIMIZEBOX | WS_MINIMIZEBOX);
 	}
 
-	CreateHandle(text.c_str(), wndStyle, exStyle);
+	CreateHandle(text.c_str(), text, wndStyle, exStyle);
 	if (menubar) ::SetMenu(GetHandle(), menubar->GetHandle());
 
 	for (auto control : collection)
@@ -63,6 +61,12 @@ void Window::SetMenuBar(MenuBar* menubar_)
 {
 	::SetMenu(GetHandle(), menubar_->GetHandle());
 	menubar = menubar_;
+}
+
+void Window::SetText(const std::string& text_)
+{
+	::SetWindowText(GetHandle(), text_.c_str());
+	text = text_;
 }
 
 void Window::SetBorderStyle(BorderStyle style_)

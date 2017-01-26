@@ -1,3 +1,6 @@
+#Data structures
+Most of the classes in this library only serve as a wrapper around system-specific handles.
+For example, in windows, the Bitmap class defined in Drawing.hpp only contains an hbitmap handle. It doesn't contain the actual bitmap data.
 #Default Control Visibility
 By default, a control is visible on creation.
 To change that, you must call SetDefaultVisible(false) before handle creation

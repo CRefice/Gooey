@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <vector>
 
 #include "Control.hpp"
@@ -20,9 +21,9 @@ enum class StatusButtons
 class Window : public Control
 {
 public:
-	Window() : Control("Window") {}
-	Window(const std::string& text) : Control(text) {}
-	Window(const std::string& text, const Point& pos, const Size& size) : Control(text, pos, size) {}
+	Window() : Control() {}
+	Window(const std::string& text) : text(text), Control() {}
+	Window(const std::string& text, const Point& pos, const Size& size) : text(text), Control(pos, size) {}
 	
 	void CreateControl() override;
 	void Close();
@@ -31,6 +32,9 @@ public:
 
 	void SetClientArea(const Size& area);
 	Size GetClientArea();
+
+	void SetText(const std::string& text_);
+	std::string GetText() { return text; }
 
 	Event<CancelToken&> OnClose;
 	Event<> OnDestroy;
@@ -45,11 +49,10 @@ public:
 
 private:
 	MenuBar* menubar = nullptr;
-
-	BorderStyle style = BorderStyle::Sizeable;
 	StatusButtons buttons = StatusButtons::Both;
+	BorderStyle style = BorderStyle::Sizeable;
+	std::string text;
 
 	std::vector<Control*>collection;
 };
 }
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);

@@ -6,14 +6,11 @@
 static void* GetAnyGLFuncAddress(const char* name)
 {
 	void *p = (void *)wglGetProcAddress(name);
-	if (p == 0 ||
-		(p == (void*)0x1) || (p == (void*)0x2) || (p == (void*)0x3) ||
-		(p == (void*)-1))
+	if (p == 0 || (p == (void*)0x1) || (p == (void*)0x2) || (p == (void*)0x3) || (p == (void*)-1))
 	{
 		HMODULE module = LoadLibraryA("opengl32.dll");
 		p = (void *)GetProcAddress(module, name);
 	}
-
 	return p;
 }
 
@@ -21,8 +18,6 @@ namespace Goo
 {
 void GLWindow::CreateControl()
 {
-	//SetColor(Color::Black());
-
 	Window::CreateControl();
 
 	PIXELFORMATDESCRIPTOR pfd =
@@ -47,7 +42,7 @@ void GLWindow::CreateControl()
 
 	context.hdc = ::GetDC(GetHandle());
 
-	int format = ::ChoosePixelFormat(context.hdc, &pfd);
+	const int format = ::ChoosePixelFormat(context.hdc, &pfd);
 	::SetPixelFormat(context.hdc, format, &pfd);
 
 	context.hglrc = wglCreateContext(context.hdc);
@@ -65,9 +60,9 @@ void GLWindow::SetViewport(const Point& point, const Size& size)
 {
 	glViewport(point.x, point.y, size.x, size.y);
 }
-void GLWindow::SetSize(const Size& size_)
+void GLWindow::SetSize(const Size& size)
 {
-	SetClientArea(size_);
+	SetClientArea(size);
 }
 
 void GLWindow::SetFullscreen()

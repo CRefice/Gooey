@@ -13,7 +13,7 @@ void ColumnHeader::SetTextAlignment(TextAlignment alignment_)
 }
 void ListView::CreateControl()
 {
-	CreateHandle(WC_LISTVIEW, LVS_EDITLABELS | LVS_REPORT, WS_EX_CLIENTEDGE);
+	CreateHandle(WC_LISTVIEW, nullptr, LVS_EDITLABELS | LVS_REPORT, WS_EX_CLIENTEDGE);
 
 	for (auto& column : columns)
 	{

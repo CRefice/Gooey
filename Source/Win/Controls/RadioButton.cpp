@@ -4,6 +4,6 @@ namespace Goo
 {
 void RadioButton::CreateControl()
 {
-	CreateHandle("BUTTON", BS_AUTORADIOBUTTON);
+	CreateHandle("BUTTON", text, BS_AUTORADIOBUTTON);
 }
 }

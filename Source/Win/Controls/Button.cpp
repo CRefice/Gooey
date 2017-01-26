@@ -4,6 +4,6 @@ namespace Goo
 {
 void Button::CreateControl()
 {
-	CreateHandle("BUTTON", BS_PUSHBUTTON);
+	CreateHandle("BUTTON", GetText(), BS_PUSHBUTTON);
 }
 }

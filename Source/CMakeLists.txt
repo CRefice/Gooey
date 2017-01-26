@@ -5,5 +5,3 @@ else ()
 endif (WIN32)
 
 add_library (Gooey STATIC ${SOURCES})
-
-install (TARGETS Gooey DESTINATION bin)

@@ -4,6 +4,6 @@ namespace Goo
 {
 void GroupBox::CreateControl()
 {
-	CreateHandle("BUTTON", BS_GROUPBOX);
+	CreateHandle("BUTTON", text, BS_GROUPBOX);
 }
 }

@@ -1,8 +1,7 @@
 #include <algorithm>
 
-#include "platform.hpp"
-
-#include "filedialog.hpp"
+#include "Platform.hpp"
+#include "Filedialog.hpp"
 
 namespace Goo
 {
@@ -33,7 +32,7 @@ DialogResult OpenFileDialog::ShowDialog()
 	return (::GetOpenFileName(&ofn) == TRUE) ? DialogResult::OK : DialogResult::Cancel;
 }
 
-std::string OpenFileDialog::GetFileName()
+std::string OpenFileDialog::GetFileName() const
 {
 	return std::string(filename);
 }

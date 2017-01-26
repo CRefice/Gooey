@@ -4,7 +4,7 @@ namespace Goo
 {
 void InputBox::CreateControl()
 {
-	CreateHandle("EDIT", ES_AUTOHSCROLL, WS_EX_CLIENTEDGE);
+	CreateHandle("EDIT", nullptr, ES_AUTOHSCROLL, WS_EX_CLIENTEDGE);
 }
 
 std::string InputBox::GetText() const

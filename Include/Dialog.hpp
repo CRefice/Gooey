@@ -6,6 +6,6 @@ namespace Goo
 {
 enum class DialogResult
 {
-	Abort, Cancel, Ignore, No, OK, Retry, Yes
+  Abort, Cancel, Ignore, No, OK, Retry, Yes
 };
 }
