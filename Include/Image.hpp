@@ -4,19 +4,19 @@
 
 #include "Handle.hpp"
 
-namespace Goo
+namespace goo
 {
 class Image
 {
 public:
-	Image() : handle() {}
+	Image() : _handle() {}
 	explicit Image(const std::string& filePath);
-	explicit Image(ImageHandle handle) : handle(handle) {}	
+	explicit Image(ImageHandle handle) : _handle(handle) {}	
 
-	ImageHandle& GetHandle() { return handle; }
-	const ImageHandle& GetHandle() const { return handle; }
+	ImageHandle& handle() { return _handle; }
+	const ImageHandle& handle() const { return _handle; }
 
 private:
-	ImageHandle handle;
+	ImageHandle _handle;
 };
 }

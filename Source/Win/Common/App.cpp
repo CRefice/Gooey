@@ -4,30 +4,25 @@
 
 #include "App.hpp"
 
-namespace Goo
+namespace goo
 {
-	void Application::Run()
-	{
+	void App::run() {
 		MSG msg;
-		while (GetMessage(&msg, NULL, 0, 0) != 0)
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+		while (::GetMessage(&msg, NULL, 0, 0) != 0) {
+			::TranslateMessage(&msg);
+			::DispatchMessage(&msg);
 		}
 	}
 
-	void Application::Quit()
-	{
-		PostQuitMessage(0);
+	void App::quit() {
+		::PostQuitMessage(0);
 	}
 
-	void Application::PollEvents()
-	{
+	void App::pollEvents() {
 		MSG Msg;
-		while (PeekMessage(&Msg, NULL, 0, 0, PM_REMOVE))
-		{
-			TranslateMessage(&Msg);
-			DispatchMessage(&Msg);
+		while (::PeekMessage(&Msg, NULL, 0, 0, PM_REMOVE)) {
+			::TranslateMessage(&Msg);
+			::DispatchMessage(&Msg);
 		}
 	}
 }

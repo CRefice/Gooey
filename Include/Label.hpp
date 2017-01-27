@@ -5,21 +5,20 @@
 #include "Control.hpp"
 #include "Font.hpp"
 
-namespace Goo
+namespace goo
 {
 class Label : public Control
 {
 public:
   Label() : Control() {}
-  Label(const std::string& text) : text(text), Control() {}
-  Label(const std::string& text, const Point& pos, const Size& size) : text(text), Control(pos, size) {}
+  Label(std::string text) : _text(std::move(text)), Control() {}
+  Label(std::string text, const Point& pos, const Size& size) : _text(std::move(text)), Control(pos, size) {}
 
-  void CreateControl() override;
-
-  void SetText(const std::string& text_);
-  std::string GetText() { return text; }
+  std::string text() { return _text; }
+  void setText(std::string text);
 
 private:
-  std::string text;
+  void createControl() override;
+  std::string _text;
 };
 }

@@ -4,7 +4,7 @@
 
 #include "Handle.hpp"
 
-namespace Goo
+namespace goo
 {
 enum class FontStyle
 {
@@ -14,18 +14,23 @@ enum class FontStyle
 class Font
 {
 public:
-  Font(const std::string& typeface, int size);
+  Font(std::string typeface, int size);
   explicit Font(FontHandle handle);
   
-  FontHandle& GetHandle() { return handle; }
-  const FontHandle& GetHandle() const { return handle; }
-  
-private:
-  std::string typeface;
-  int size;
-  
-  FontHandle handle;
-};
+  FontHandle& handle() { return _handle; }
+  const FontHandle& handle() const { return _handle; }
 
-Font DefaultFont();
+	std::string typeface() { return _typeface; }
+	std::string setTypeface();
+  
+	int size() { return _size; }
+	void setSize(int size);
+
+private:
+  std::string _typeface;
+  int _size;
+  
+  FontHandle _handle;
+};
+Font defaultFont();
 }

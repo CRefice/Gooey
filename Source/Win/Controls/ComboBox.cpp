@@ -1,35 +1,36 @@
 #include "ComboBox.hpp"
 
-namespace Goo
+namespace goo
 {
-void ComboBox::CreateControl() {
-	CreateHandle(WC_COMBOBOX, "", CBS_DROPDOWNLIST | CBS_HASSTRINGS);
-	for (auto& str : items) {
-		DoAddItem(str);
+void ComboBox::createControl() {
+	createHandle(WC_COMBOBOX, "", CBS_DROPDOWNLIST | CBS_HASSTRINGS);
+	for (auto& str : _items) {
+		doAddItem(str);
 	}
-	SelectItem(selectedIndex);
+	selectItem(_selectedIndex);
 }
 
-void ComboBox::AddItem(const std::string& text) {
-	DoAddItem(text);
-	items.push_back(text);
+void ComboBox::addItem(std::string text) {
+	doAddItem(text);
+	_items.push_back(std::move(text));
 }
 
-void ComboBox::DoAddItem(const std::string& text) {
-	::SendMessage(GetHandle(), (UINT)CB_ADDSTRING, (WPARAM)0, (LPARAM)text.c_str());
+void ComboBox::doAddItem(const std::string& text) {
+	::SendMessage(handle(), CB_ADDSTRING, 0, (LPARAM)(text.c_str()));
 }
 
-int ComboBox::GetSelectedIndex() const {
-	return (int)(::SendMessage(GetHandle(), (UINT)CB_GETCURSEL, 0, 0));
-}
-void ComboBox::SelectItem(int index) {
-	::SendMessage(GetHandle(), CB_SETCURSEL, index, 0);
-	selectedIndex = index;
+int ComboBox::selectedIndex() const {
+	return (int)(::SendMessage(handle(), CB_GETCURSEL, 0, 0));
 }
 
-std::string ComboBox::GetSelectedString() const {
+void ComboBox::selectItem(int index) {
+	::SendMessage(handle(), CB_SETCURSEL, index, 0);
+	_selectedIndex = index;
+}
+
+std::string ComboBox::selectedString() const {
 	char buffer[0x100];
-	::SendMessage(GetHandle(), (UINT)CB_GETLBTEXT, GetSelectedIndex(), (LPARAM)buffer);
+	::SendMessage(handle(), CB_GETLBTEXT, selectedIndex(), (LPARAM)buffer);
 	return std::string(buffer);
 }
 }

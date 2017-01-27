@@ -4,52 +4,30 @@
 
 #include "ListView.hpp"
 
-namespace Goo
+namespace goo
 {
-void ColumnHeader::SetTextAlignment(TextAlignment alignment_)
-{
-	alignment = alignment_;
-	// TODO: actual handling
-}
-void ListView::CreateControl()
-{
-	CreateHandle(WC_LISTVIEW, nullptr, LVS_EDITLABELS | LVS_REPORT, WS_EX_CLIENTEDGE);
-
-	for (auto& column : columns)
-	{
-		DoAddColumn(column);
+void ListView::createControl() {
+	createHandle(WC_LISTVIEW, NULL, LVS_EDITLABELS | LVS_REPORT, WS_EX_CLIENTEDGE);
+	for (auto& column : _columns) {
+		doAddColumn(column);
 	}
-	for (auto& item : items)
-	{
-		DoAddItem(item);
+	for (auto& item : _items) {
+		doAddItem(item);
 	}
 }
 
-void ListView::AddColumn(const ColumnHeader& column)
-{
-	if (IsCreated())
-	{
-		DoAddColumn(column);
-	}
-
-	columns.push_back(column);
+void ListView::addColumn(ColumnHeader column) {
+	doAddColumn(column);
+	_columns.push_back(std::move(column));
+}
+void ListView::addItem(ListViewItem item) {
+	doAddItem(item);
+	_items.push_back(std::move(item));
 }
 
-void ListView::AddItem(const ListViewItem& item)
-{
-	if (IsCreated())
-	{
-		DoAddItem(item);
-	}
-
-	items.push_back(item);
-}
-
-void ListView::DoAddColumn(const ColumnHeader& column)
-{
+void ListView::doAddColumn(const ColumnHeader& column) {
 	int fmt;
-	switch (column.GetTextAlignment())
-	{
+	switch (column.textAlignment()) {
 	case TextAlignment::Center:
 		fmt = LVCFMT_CENTER;
 		break;
@@ -63,25 +41,24 @@ void ListView::DoAddColumn(const ColumnHeader& column)
 		break;
 	}
 
-	const std::string& text = column.GetText();
+	const std::string& text = column.text();
 	char* temp = new char[text.size() + 1];
 	std::copy(text.cbegin(), text.cend(), temp);
 	temp[text.size()] = '\0';
 
 	LVCOLUMN lvc;
 	lvc.mask = LVCF_FMT | LVCF_WIDTH | LVCF_TEXT | LVCF_SUBITEM;
-	lvc.iSubItem = (int)columns.size();
+	lvc.iSubItem = (int)(_columns.size());
 	lvc.pszText = temp;
-	lvc.cx = column.GetWidth();
+	lvc.cx = column.width();
 	lvc.fmt = fmt;
-	ListView_InsertColumn(GetHandle(), columns.size(), &lvc);
+	ListView_InsertColumn(handle(), _columns.size(), &lvc);
 
 	delete[] temp;
 }
 
-void ListView::DoAddItem(const ListViewItem& item)
-{
-	const std::string& text = item.GetText();
+void ListView::doAddItem(const ListViewItem& item) {
+	const std::string& text = item.text();
 	char* temp = new char[text.size() + 1];
 	std::copy(text.cbegin(), text.cend(), temp);
 	temp[text.size()] = '\0';
@@ -92,9 +69,13 @@ void ListView::DoAddItem(const ListViewItem& item)
 	lvi.pszText = LPSTR_TEXTCALLBACK;
 	lvi.state = 0;
 	lvi.stateMask = 0;
-
-	ListView_InsertItem(GetHandle(), &lvi);
+	ListView_InsertItem(handle(), &lvi);
 
 	delete[] temp;
+}
+
+void ColumnHeader::setTextAlignment(TextAlignment alignment) {
+	_alignment = alignment;
+	// TODO: actual handling
 }
 }

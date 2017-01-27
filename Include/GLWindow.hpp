@@ -2,21 +2,21 @@
 
 #include "Window.hpp"
 
-namespace Goo
+namespace goo
 {
 class GLWindow : public Window
 {
 public:
-  void CreateControl() override;
-  void SwapBuffers();
+  void swapBuffers();
 
-  void SetViewport(const Point& pos, const Size& size);
-  void SetSize(const Size& size) override;
+  void setViewport(const Point& pos, const Size& size);
 
-  void SetFullscreen();
-  void SetVsync(bool enable);
+  void setFullscreen(bool enable);
+  void setVsync(bool enable);
 
 private:
-  GLContext context;
+  void createControl() override;
+
+  GLContext _context;
 };
 }

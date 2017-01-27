@@ -1,15 +1,14 @@
 #include "ImageBox.hpp"
 
-namespace Goo
+namespace goo
 {
-	void ImageBox::CreateControl() {
-		CreateHandle("STATIC", "", SS_BITMAP);
-		SetImage(image);
-	}
-	
-	void ImageBox::SetImage(const Image& image_) {
-		::SendMessage(GetHandle(), STM_SETIMAGE,
-				IMAGE_BITMAP, (LPARAM)(HBITMAP)(image_.GetHandle()));
-		image = image_;
-	}
+void ImageBox::createControl() {
+	createHandle("STATIC", "", SS_BITMAP);
+	setImage(_image);
+}
+
+void ImageBox::setImage(Image image) {
+	::SendMessage(handle(), STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)(HBITMAP)(image.handle()));
+	_image = image;
+}
 }

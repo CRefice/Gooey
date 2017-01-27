@@ -2,16 +2,15 @@
 
 #include "Keys.hpp"
 
-namespace Goo
+namespace goo
 {
-bool IsKeyDown(Key key)
-{
-  return ::GetAsyncKeyState(static_cast<unsigned char>(key));
+bool keyDown(Key key) {
+	//TODO: give more information...?
+  return ::GetAsyncKeyState(static_cast<uint8_t>(key)) != 0;
 }
 
-Point GetMousePos()
-{
-  ::POINT retVal;
+Point mousePos() {
+  POINT retVal;
   ::GetCursorPos(&retVal);
   return { retVal.x, retVal.y };
 }

@@ -2,7 +2,7 @@
 
 #include <functional>
 
-namespace Goo
+namespace goo
 {
 template<typename ...Args>
 class Event
@@ -10,18 +10,15 @@ class Event
 public:
   using FuncType = std::function<void(Args...)>;
 
-  Event() : handler([](Args...) {}) {}
-  Event(FuncType handler) : handler(handler) {}
+  Event() : _handler([](Args...) {}) {}
+  Event(FuncType handler) : _handler(std::move(handler)) {}
 
-  void SetHandler(FuncType handler_)
-  {
-  	handler = handler_;
-  }
+	void setHandler(FuncType handler) { _handler = handler; }
 
-  void operator()(Args... args) { handler(args...); }
+  void operator()(Args... args) { _handler(args...); }
 
 private:
-  FuncType handler;
+  FuncType _handler;
 };
 
 //The following are some utility event arguments

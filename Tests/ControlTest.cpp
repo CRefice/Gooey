@@ -6,41 +6,41 @@
 #include <ImageBox.hpp>
 #include <Label.hpp>
 
-using namespace Goo;
+using namespace goo;
 
 class MyWindow : public Window
 {
 public:
 	MyWindow() {
-		SetText("Test");
-		SetSize({340, 320});
+		setText("Test");
+		setSize({340, 320});
 
-		comboBox.SetBounds({ 50, 50 }, { 120, 20 });
-		label.SetBounds({ 180, 53 }, {100, 20});
+		comboBox.setBounds({ 50, 50 }, { 120, 20 });
+		label.setBounds({ 180, 53 }, {100, 20});
 
-		button.SetBounds({120, 220}, {80, 25});
-		imgBox.SetBounds({ 110, 100 }, { 100, 100 });
+		button.setBounds({120, 220}, {80, 25});
+		imgBox.setBounds({ 110, 100 }, { 100, 100 });
 
-		comboBox.AddItem("This is an item!");
-		comboBox.AddItem("This is also an item!");
+		comboBox.addItem("This is an item!");
+		comboBox.addItem("This is also an item!");
 
-		comboBox.OnSelectionChanged.SetHandler([this](int index)
+		comboBox.onSelectionChanged.setHandler([this](int index)
 		{
-			label.SetText("Selected item #" + std::to_string(index));
+			label.setText("Selected item #" + std::to_string(index));
 		});
-		button.OnClick.SetHandler([this]()
+		button.onClick.setHandler([this]()
 		{
 			OpenFileDialog dlg{ "Open an image file", "Bitmap files (*.bmp)|*.bmp" };
-			if (dlg.ShowDialog() == DialogResult::OK)
+			if (dlg.show() == DialogResult::OK)
 			{
-				imgBox.SetImage(Image(dlg.GetFileName()));
+				imgBox.setImage(Image(dlg.fileName()));
 			}
 		});
 
-		AddControl(label);
-		AddControl(button);
-		AddControl(comboBox);
-		AddControl(imgBox);
+		addControl(label);
+		addControl(button);
+		addControl(comboBox);
+		addControl(imgBox);
 	}
 
 	Label label{ "This is a label!" };
@@ -52,6 +52,6 @@ public:
 int main()
 {
 	MyWindow wnd;
-	wnd.Show();
-	Application::Run();
+	wnd.show();
+	App::run();
 }

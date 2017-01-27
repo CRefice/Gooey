@@ -1,19 +1,16 @@
 #include "CheckBox.hpp"
 
-namespace Goo
+namespace goo
 {
-void CheckBox::CreateControl()
-{
-	CreateHandle("BUTTON", text, BS_AUTOCHECKBOX);
+void CheckBox::createControl() {
+	createHandle("BUTTON", _text, BS_AUTOCHECKBOX);
 }
 
-void CheckBox::SetChecked(bool state)
-{
-	::SendMessage(GetHandle(), BM_SETCHECK, state ? BST_CHECKED : BST_UNCHECKED, 0);
+void CheckBox::setChecked(bool state) {
+	::SendMessage(handle(), BM_SETCHECK, state ? BST_CHECKED : BST_UNCHECKED, 0);
 }
 
-bool CheckBox::IsChecked() const
-{
-	return ::SendMessage(GetHandle(), BM_GETCHECK, 0, 0) == BST_CHECKED;
+bool CheckBox::checked() const {
+	return ::SendMessage(handle(), BM_GETCHECK, 0, 0) == BST_CHECKED;
 }
 }

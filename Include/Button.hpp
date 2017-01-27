@@ -2,15 +2,16 @@
 
 #include "ButtonBase.hpp"
 
-namespace Goo
+namespace goo
 {
 class Button : public ButtonBase
 {
 public:
 	Button() : ButtonBase() {}
-	Button(const std::string& text) : ButtonBase(text) {}
-	Button(const std::string& text, const Point& pos, const Size& size) : ButtonBase(text, pos, size) {}
+	Button(std::string text) : ButtonBase(std::move(text)) {}
+	Button(std::string text, const Point& pos, const Size& size) : ButtonBase(std::move(text), pos, size) {}
 
-	void CreateControl() override;
+private:
+	void createControl() override;
 };
 }

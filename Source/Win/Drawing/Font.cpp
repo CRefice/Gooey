@@ -1,19 +1,18 @@
 #include "Font.hpp"
 
-namespace Goo
+namespace goo
 {
-Font::Font(FontHandle handle) : handle(handle) {}
+//TODO: remember to set members for this!
+Font::Font(FontHandle handle) : _handle(handle) {}
 
-Font::Font(const std::string& typeface, int size) : typeface(typeface), size(size)
-{
-	handle = ::CreateFont(size, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, ANSI_CHARSET,
-		OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH | FF_DONTCARE, typeface.c_str());
+Font::Font(std::string typeface, int size) : _typeface(std::move(typeface)), _size(size) {
+	_handle = ::CreateFont(_size, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE,
+		ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE, _typeface.c_str());
 }
 
-Font DefaultFont()
-{
+Font defaultFont() {
+	//Don't know why WinApi doesn't define a macro for this...
 	return Font("Microsoft Sans Serif", 14);
-	//return Font((HFONT)GetStockObject(DEFAULT_GUI_FONT));
 }
 }

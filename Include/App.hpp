@@ -1,11 +1,11 @@
 #pragma once
 
-namespace Goo
+namespace goo
 {
-namespace Application
+namespace App
 {
-	void Run();
-	void Quit();
-	void PollEvents();
+	void run();
+	void quit();
+	void pollEvents();
 }
 }

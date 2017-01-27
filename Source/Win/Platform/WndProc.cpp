@@ -4,68 +4,58 @@
 
 #include "Platform.hpp"
 
-namespace Goo
+namespace goo
 {
 template<typename T>
-T* WinPtrFromHandle(HWND handle)
-{
+static T* ptrFromHandle(HWND handle) {
+	//dynamic_cast should work... research
 	return static_cast<T*>(::GetProp(handle, "PROP_CONTROL"));
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
-{
-	Window* sender = WinPtrFromHandle<Window>(hwnd);
+LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
+	Window* sender = ptrFromHandle<Window>(hwnd);
 
-	switch (msg)
-	{
-	case WM_DESTROY:
-	{
-		if (sender) sender->OnDestroy();
+	switch (msg) {
+	case WM_DESTROY: {
+		if (sender) sender->onDestroy();
 		return 0;
 	}
 
-	case WM_CLOSE:
-	{
+	case WM_CLOSE: {
 		if (!sender) return 0;
 
 		CancelToken token;
-		sender->OnClose(token);
-		if (!token.cancel) sender->Close();
+		sender->onClose(token);
+		if (!token.cancel) sender->close();
 		return 0;
 	}
 
-	case WM_COMMAND:
-	{
-		switch (HIWORD(wparam))
-		{
-		case BN_CLICKED:
-		{
-			ButtonBase* clicked = WinPtrFromHandle<ButtonBase>((HWND)lparam);
-			if (clicked) clicked->OnClick();
+	case WM_COMMAND: {
+		switch (HIWORD(wparam)) {
+		case BN_CLICKED: {
+			ButtonBase* clicked = ptrFromHandle<ButtonBase>((HWND)lparam);
+			if (clicked) clicked->onClick();
 
-			else if (sender->GetMenuBar() != nullptr)
-			{
-				sender->GetMenuBar()->GetFromID(LOWORD(wparam))->OnClick();
+			else if (sender->menuBar() != nullptr) {
+				sender->menuBar()->itemFromId(LOWORD(wparam))->onClick();
 			}
 			break;
 		}
-		case CBN_SELCHANGE:
-		{
-			ComboBox* box = WinPtrFromHandle<ComboBox>((HWND)lparam);
-			if(box) box->OnSelectionChanged(box->GetSelectedIndex());
+		case CBN_SELCHANGE: {
+			ComboBox* box = ptrFromHandle<ComboBox>((HWND)lparam);
+			if(box) box->onSelectionChanged(box->selectedIndex());
 			break;
 		}
 		}
 		return 0;
 	}
-	case WM_SIZE:
-	{
-		if (sender) sender->OnResize({ LOWORD(lparam), HIWORD(lparam) });
+	case WM_SIZE: {
+		if (sender) sender->onResize({ LOWORD(lparam), HIWORD(lparam) });
 		return 0;
 	}
 
 	default:
-		return DefWindowProc(hwnd, msg, wparam, lparam);
+		return ::DefWindowProc(hwnd, msg, wparam, lparam);
 	}
 }
 }

@@ -5,25 +5,26 @@
 #include "Control.hpp"
 #include "Text.hpp"
 
-namespace Goo
+namespace goo
 {
 class ColumnHeader
 {
 public:
-  ColumnHeader(const std::string& text, int width) : text(text), width(width) {}
+  ColumnHeader(std::string text, int width) : _text(std::move(text)), _width(width) {}
 
-  std::string GetText() const { return text; }
-  int GetWidth() const { return width; }
+  std::string text() const { return _text; }
+  int width() const { return _width; }
 
-  void SetTextAlignment(TextAlignment alignment_);
-  TextAlignment GetTextAlignment() const { return alignment; }
+  void setTextAlignment(TextAlignment alignment);
+  TextAlignment textAlignment() const { return _alignment; }
 
 private:
-  TextAlignment alignment = TextAlignment::Center;
-  std::string text;
-  int width;
+  std::string _text;
+  int _width;
+  TextAlignment _alignment = TextAlignment::Center;
 };
 
+//Really lazy, I know, but it does the job fine
 typedef ColumnHeader ListViewItem;
 
 class ListView : public Control
@@ -32,18 +33,20 @@ public:
   ListView() : Control() {}
   ListView(const Point& pos, const Size& size) : Control(pos, size) {}
 
-  void CreateControl() override;
+  void addColumn(ColumnHeader column);
+  void addItem(ListViewItem item);
 
-  void AddColumn(const ColumnHeader& column);
-  void AddItem(const ListViewItem& item);
-
-  std::vector<ColumnHeader> GetColumns() { return columns; }
-  std::vector<ListViewItem> GetItems() { return items; }
+  std::vector<ColumnHeader> columns() { return _columns; }
+  std::vector<ListViewItem> items() { return _items; }
 
 private:
-  void DoAddColumn(const ColumnHeader& column);
-  void DoAddItem(const ListViewItem& item);
-  std::vector<ColumnHeader> columns;
-  std::vector<ListViewItem> items;
+  void createControl() override;
+
+  void doAddColumn(const ColumnHeader& column);
+  void doAddItem(const ListViewItem& item);
+
+  std::vector<ColumnHeader> _columns;
+  std::vector<ListViewItem> _items;
+
 };
 }

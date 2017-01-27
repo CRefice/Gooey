@@ -2,25 +2,40 @@
 
 #include <cstdint>
 
-namespace Goo
+namespace goo
 {
 struct Point
 {
-  Point();
-  Point(int x, int y);
+  inline Point() : x(0), y(0) {}
+  inline Point(int x, int y) : x(x), y(y) {}
 
   int x, y;
 
-  Point& operator+=(const Point& rhs);
-  Point& operator-=(const Point& rhs);
+  inline Point& operator+=(const Point& rhs) {
+		x += rhs.x;
+		y += rhs.y;
+		return *this;
+	}
+  inline Point& operator-=(const Point& rhs) {
+	  x -= rhs.x;
+	  y -= rhs.y;
+	  return *this;
+  }
 };
 
-Point operator+(Point lhs, const Point& rhs);
-Point operator-(Point lhs, const Point& rhs);
+inline Point operator+(Point lhs, const Point& rhs) {
+	return lhs += rhs;
+}
+inline Point operator-(Point lhs, const Point& rhs) {
+	return lhs -= rhs;
+}
 
-Point DefaultPosition();
-
+//lazy, I know, but... eh, whatever.
+//remind me to implement this later.
 typedef Point Size;
+
+Point defaultPosition();
+Size defaultSize();
 
 struct Color
 {
@@ -28,13 +43,13 @@ struct Color
 
   Color(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b) {}
 
-  static Color Red();
-  static Color Green();
-  static Color Blue();
+  static Color red();
+  static Color green();
+  static Color blue();
 
-  static Color Black();
-  static Color White();
+  static Color black();
+  static Color white();
 
-  static Color Control();
+  static Color control();
 };
 }

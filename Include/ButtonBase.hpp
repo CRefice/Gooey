@@ -6,24 +6,21 @@
 #include "Font.hpp"
 #include "Event.hpp"
 
-namespace Goo
+namespace goo
 {
 class ButtonBase : public Control
 {
 public:
   ButtonBase() : Control() {}
-  ButtonBase(const std::string& text) : text(text), Control() {}
-  ButtonBase(const std::string& text, const Point& pos, const Size& size) : text(text), Control(pos, size) {}
+  ButtonBase(std::string text) : _text(std::move(text)), Control() {}
+  ButtonBase(std::string text, const Point& pos, const Size& size) : _text(std::move(text)), Control(pos, size) {}
 
-  Event<> OnClick;
+  Event<> onClick;
 
-  void SetText(const std::string& text_);
-  std::string GetText() const { return text; }
-  void SetFont(const Font& font_);
-  Font GetFont() const { return font; }
+  void setText(std::string text);
+  std::string text() const { return _text; }
 
 protected:
-  std::string text;
-  Font font = DefaultFont();
+  std::string _text;
 };
 }

@@ -1,9 +1,8 @@
 #include "Button.hpp"
 
-namespace Goo
+namespace goo
 {
-void Button::CreateControl()
-{
-	CreateHandle("BUTTON", GetText(), BS_PUSHBUTTON);
+void Button::createControl() {
+	createHandle("BUTTON", text(), BS_PUSHBUTTON);
 }
 }

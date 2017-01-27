@@ -2,7 +2,7 @@
 
 #include "Control.hpp"
 
-namespace Goo
+namespace goo
 {
 class InputBox : public Control
 {
@@ -10,15 +10,12 @@ public:
   InputBox() : Control() {}
   InputBox(const Point& pos, const Size& size) : Control(pos, size) {}
 
-  void CreateControl() override;
-
-  void SetText(const std::string& text);
-  std::string GetText() const;
-  void SetFont(const Font& font);
-  Font GetFont() { return font; }
+  void setText(std::string text);
+  std::string text() const;
 
 private:
-  char buffer[0x200];
-  Font font = DefaultFont();
+  void createControl() override;
+
+  char _buffer[0x200];
 };
 }

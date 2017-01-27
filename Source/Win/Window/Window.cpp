@@ -2,27 +2,25 @@
 
 #include "Window.hpp"
 
-namespace Goo
+namespace goo
 {
-void Window::CreateControl()
-{
+void Window::createControl() {
 	WNDCLASSEX wclass;
-	ZeroMemory(&wclass, sizeof(wclass));
-	wclass.cbSize = sizeof(WNDCLASSEX);
-	wclass.lpfnWndProc = WndProc;
-	wclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wclass.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wclass.hInstance = GetModuleHandle(NULL);
-	wclass.hbrBackground = GetSysColorBrush(COLOR_3DFACE);
-	wclass.lpszClassName = text.c_str();
+	::ZeroMemory(&wclass, sizeof(wclass));
+	wclass.cbSize = sizeof(wclass);
+	wclass.lpfnWndProc = wndProc;
+	wclass.hIcon = ::LoadIcon(NULL, IDI_APPLICATION);
+	wclass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
+	wclass.hInstance = ::GetModuleHandle(NULL);
+	wclass.hbrBackground = ::GetSysColorBrush(COLOR_3DFACE);
+	wclass.lpszClassName = _text.c_str();
 
-	RegisterClassEx(&wclass);
+	::RegisterClassEx(&wclass);
 
 	long wndStyle = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION | CS_OWNDC;
 	long exStyle = 0;
 
-	switch (style)
-	{
+	switch (_borderStyle) {
 	case BorderStyle::Sizeable:
 		wndStyle |= WS_THICKFRAME;
 		break;
@@ -31,8 +29,7 @@ void Window::CreateControl()
 		exStyle |= WS_EX_CLIENTEDGE;
 		break;
 	}
-	switch (buttons)
-	{
+	switch (_titleButtons) {
 	case StatusButtons::Maximize:
 		wndStyle |= WS_MAXIMIZEBOX;
 		break;
@@ -45,61 +42,63 @@ void Window::CreateControl()
 		wndStyle |= (WS_MAXIMIZEBOX | WS_MINIMIZEBOX);
 	}
 
-	CreateHandle(text.c_str(), text, wndStyle, exStyle);
-	if (menubar) ::SetMenu(GetHandle(), menubar->GetHandle());
+	createHandle(_text.c_str(), _text, wndStyle, exStyle);
+	if (_menuBar) ::SetMenu(handle(), _menuBar->handle());
 
-	for (auto control : collection)
-		control->Create();
+	for (auto control : _collection)
+		control->create();
 }
 
-void Window::Close()
+void Window::close()
 {
-	::DestroyWindow(GetHandle());
+	::DestroyWindow(handle());
 }
 
-void Window::SetMenuBar(MenuBar* menubar_)
+void Window::setMenuBar(MenuBar* menubar)
 {
-	::SetMenu(GetHandle(), menubar_->GetHandle());
-	menubar = menubar_;
+	::SetMenu(handle(), menubar->handle());
+	_menuBar = menubar;
 }
 
-void Window::SetText(const std::string& text_)
+void Window::setText(std::string text)
 {
-	::SetWindowText(GetHandle(), text_.c_str());
-	text = text_;
+	::SetWindowText(handle(), text.c_str());
+	_text = std::move(text);
 }
 
-void Window::SetBorderStyle(BorderStyle style_)
+void Window::setBorderStyle(BorderStyle style)
 {
-	style = style_;
+	//TODO
+	_borderStyle = style;
 }
 
-void Window::SetTitleBarButtons(StatusButtons style_)
+void Window::setTitleBarButtons(StatusButtons buttons)
 {
-	buttons = style_;
+	//TODO
+	_titleButtons = buttons;
 }
 
-void Window::AddControl(Control& control)
+void Window::addControl(Control& control)
 {
-	control.SetParent(this);
-	if (IsCreated()) control.Create();
+	control.setParent(this);
+	if (created()) control.create();
 
-	collection.emplace_back(&control);
+	_collection.emplace_back(&control);
 }
 
-void Window::SetClientArea(const Size& area)
+void Window::setClientArea(const Size& area)
 {
 	RECT rect;
 	::SetRect(&rect, 0, 0, area.x + 1, area.y + 1);
 
-	::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW | CS_OWNDC, GetMenuBar() != nullptr);
-	Control::SetSize({ rect.right - rect.left - 1, rect.bottom - rect.top - 1 });
+	::AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW | CS_OWNDC, menuBar() != nullptr);
+	Control::setSize({ rect.right - rect.left - 1, rect.bottom - rect.top - 1 });
 }
 
-Size Window::GetClientArea()
+Size Window::clientArea()
 {
 	RECT rect;
-	::GetClientRect(GetHandle(), &rect);
+	::GetClientRect(handle(), &rect);
 	return Size(rect.right - rect.left, rect.bottom - rect.top);
 }
 }

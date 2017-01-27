@@ -2,9 +2,9 @@
 
 #include "Drawing.hpp"
 
-namespace Goo
+namespace goo
 {
-enum class Key : unsigned char
+enum class Key : uint8_t
 {
   MouseL = 0x01,
   MouseR = 0x02,
@@ -101,7 +101,7 @@ enum class Key : unsigned char
   F24 = 0x87,
 };
 
-bool IsKeyDown(Key key);
+bool keyDown(Key key);
 
-Point GetMousePos();
+Point mousePosition();
 }

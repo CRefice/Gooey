@@ -5,23 +5,23 @@
 #include "Event.hpp"
 #include "Handle.hpp"
 
-namespace Goo
+namespace goo
 {
 class MenuItem
 {
 public:
-  Event<> OnClick;
+  Event<> onClick;
 
 protected:
-  MenuItem(const std::string& text, long style);
-  MenuItem(const std::string& text, long style, uintptr_t id);
+  MenuItem(std::string text, long style);
+  MenuItem(std::string text, long style, uintptr_t id);
 
-  MenuHandle container;
-  uintptr_t id;
-  std::string text;
+  MenuHandle _container;
+  uintptr_t _id;
+  std::string _text;
 
 private:
-  long style;
+  long _style;
 
   friend class Menu;
 };
@@ -29,15 +29,15 @@ private:
 class TextItem : public MenuItem
 {
 public:
-  TextItem(const std::string& text_);
+  TextItem(std::string text);
 
-  void SetChecked(bool state);
-  bool IsChecked() const { return checked; }
+  void setChecked(bool state);
+  bool checked() const { return _checked; }
 
-  std::string GetText() const { return text; }
+  std::string text() const { return _text; }
 
 private:
-  bool checked;
+  bool _checked;
 };
 
 class SeparatorItem : public MenuItem
@@ -51,14 +51,14 @@ class Menu
 public:
   Menu();
 
-  void AppendItem(MenuItem& item);
-  MenuItem* GetFromID(int id);
+  void appendItem(MenuItem& item);
+  MenuItem* itemFromId(int id);
 
-  MenuHandle& GetHandle() { return handle; }
-  const MenuHandle& GetHandle() const { return handle; }
+  MenuHandle& handle() { return _handle; }
+  const MenuHandle& handle() const { return _handle; }
 
 private:
-  MenuHandle handle;
+  MenuHandle _handle;
 };
 
 class MenuBar : public Menu
@@ -67,8 +67,8 @@ class MenuBar : public Menu
 class PopupMenuItem : public Menu, public MenuItem
 {
 public:
-  PopupMenuItem(const std::string& text);
+  PopupMenuItem(std::string text);
 
-  std::string GetText() const { return text; }
+  std::string text() const { return _text; }
 };
 }

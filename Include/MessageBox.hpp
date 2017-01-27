@@ -2,7 +2,7 @@
 
 #include "Dialog.hpp"
 
-namespace Goo
+namespace goo
 {
 enum class MessageBoxButtons
 {
@@ -16,7 +16,7 @@ enum class MessageBoxIcon
 
 namespace MessageBox
 {
-	DialogResult Show(const std::string& text, const std::string& title,
+	DialogResult show(const std::string& text, const std::string& title,
 		MessageBoxIcon icon = MessageBoxIcon::None, MessageBoxButtons buttons = MessageBoxButtons::OK);
 };
 }

@@ -2,7 +2,7 @@
 
 #include "Platform.hpp"
 
-namespace Goo
+namespace goo
 {
 template<typename T>
 struct Handle

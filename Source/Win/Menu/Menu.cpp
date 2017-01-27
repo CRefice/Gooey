@@ -2,47 +2,45 @@
 
 #include "Menu.hpp"
 
-namespace Goo
+namespace goo
 {
-static int total_id = 0;
-static std::vector<MenuItem*>& StaticVec()
-{
+static int totalId = 0;
+
+//Classic C++ trick: wrapping a static in a function
+static std::vector<MenuItem*>& staticVec() {
   static std::vector<MenuItem*> vec;
   return vec;
 }
 
-MenuItem::MenuItem(const std::string& text_, long style_) : text(text_), style(style_), id(total_id++) {}
-MenuItem::MenuItem(const std::string& text_, long style_, uintptr_t id_) : text(text_), style(style_), id(id_) {}
+MenuItem::MenuItem(std::string text, long style) : _text(std::move(text)), _style(style), _id(totalId++) {}
+MenuItem::MenuItem(std::string text, long style, uintptr_t id) : _text(text), _style(style), _id(id) {}
 
-TextItem::TextItem(const std::string & text_) : MenuItem(text_, MF_STRING) {}
+TextItem::TextItem(std::string text) : MenuItem(std::move(text), MF_STRING) {}
 
-void TextItem::SetChecked(bool state)
-{
-	::CheckMenuItem(container, (UINT)id, state ? MF_CHECKED : MF_UNCHECKED);
-	checked = state;
+void TextItem::setChecked(bool state) {
+	::CheckMenuItem(_container, (UINT)_id, state ? MF_CHECKED : MF_UNCHECKED);
+	_checked = state;
 }
 
 SeparatorItem::SeparatorItem() : MenuItem(nullptr, MF_SEPARATOR, 0) {}
 
 
-Menu::Menu() : handle(::CreateMenu()) {}
+Menu::Menu() : _handle(::CreateMenu()) {}
 
-void Menu::AppendItem(MenuItem& item)
-{
-	::AppendMenu(handle, item.style, item.id, item.text.c_str());
-	item.container = handle;
-	StaticVec().emplace_back(&item);
+void Menu::appendItem(MenuItem& item) {
+	::AppendMenu(_handle, item._style, item._id, item._text.c_str());
+	item._container = _handle;
+	staticVec().emplace_back(&item);
 }
 
-MenuItem* Menu::GetFromID(int id)
-{
-	auto item = std::find_if(StaticVec().cbegin(), StaticVec().cend(), [this, id](MenuItem* item)
-	{
-		return item->id == id;
-	});
+MenuItem* Menu::itemFromId(int id) {
+	auto item = std::find_if(staticVec().cbegin(), staticVec().cend(),
+		[this, id](MenuItem* item) {
+			return item->_id == id;
+		});
 
-	return item != StaticVec().end() ? *item : nullptr;
+	return item != staticVec().end() ? *item : nullptr;
 }
 
-PopupMenuItem::PopupMenuItem(const std::string& text_) : Menu(), MenuItem(text_, MF_POPUP, (UINT_PTR)(HMENU)GetHandle()) {}
+PopupMenuItem::PopupMenuItem(std::string text) : Menu(), MenuItem(std::move(text), MF_POPUP, (UINT_PTR)(HMENU)handle()) {}
 }

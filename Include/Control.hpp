@@ -6,55 +6,59 @@
 #include "Font.hpp"
 #include "Handle.hpp"
 
-namespace Goo
+namespace goo
 {
 class Control
 {
 public:
-  Control();
-  Control(const Point& pos, const Size& size);
-  explicit Control(ControlHandle handle);
-  
-  void Create();
-  bool IsCreated() const { return created; }
-  
-  void SetVisible(bool state);
-  void Show() { SetVisible(true); }
-  void Hide() { SetVisible(false); }
-  bool IsVisible() const;
-  
-  void SetEnabled(bool state);
-  void Enable();
-  void Disable();
-  bool IsEnabled() const;
-  
-  void SetParent(const Control* parent_);
-  
-  void SetBounds(const Point& pos_, const Size& size_);
-  void SetPosition(const Point& pos_);
-  virtual void SetSize(const Size& size_);
-  
-  Point GetPosition() const { return pos; }
-  Size GetSize() const { return size; }
-  
-  Font GetFont() { return font; }
-  void SetFont(const Font& font_);
+	Control() : _pos(defaultPosition()), _size(defaultSize()) {}
+	Control(const Point& pos, const Size& size) : _pos(pos), _size(size) {}
+	
+	void create() {
+			createControl();
+			_created = true;
+		}
 
-  ControlHandle& GetHandle() { return handle; }
-  const ControlHandle& GetHandle() const { return handle; }
+	bool created() const { return _created; }
+	
+	void setVisible(bool state);
+	void show() { setVisible(true); }
+	void hide() { setVisible(false); }
+	bool visible() const;
+	
+	void setEnabled(bool state);
+	void enable() { setEnabled(true); }
+	void disable() { setEnabled(false); }
+	bool enabled() const;
+	
+	void setParent(const Control* parent);
+	const Control* parent() const { return _parent; }
+	
+	Point position() const { return _pos; }
+	Size size() const { return _size; }
+	void setBounds(const Point& pos, const Size& size);
+	void setPosition(const Point& pos);
+	void setSize(const Size& size);
+	
+	Font font() { return _font; }
+	void setFont(Font font);
+
+	ControlHandle& handle() { return _handle; }
+	const ControlHandle& handle() const { return _handle; }
 
 protected:
-  virtual void CreateControl() = 0;
-  void CreateHandle(const char* name, const std::string& text, long style, long exStyle = 0);
+	virtual void createControl() = 0;
+	void createHandle(const char* name, const std::string& text, long style, long exStyle = 0);
 
 private:
-  Point pos;
-  Size size;
-  Font font = DefaultFont();
 
-  const Control* parent = nullptr;
-  bool created = false;
-  
-  ControlHandle handle;
+	Point _pos;
+	Size _size;
+	Font _font = defaultFont();
+
+	const Control* _parent = nullptr;
+	bool _created = false;
+	
+	ControlHandle _handle;
 };
 }

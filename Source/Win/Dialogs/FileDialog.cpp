@@ -1,16 +1,15 @@
 #include <algorithm>
 
 #include "Platform.hpp"
+
 #include "Filedialog.hpp"
 
-namespace Goo
+namespace goo
 {
-OpenFileDialog::OpenFileDialog(const std::string& text, const std::string& filter) : text(text), filter(filter) {}
-
-DialogResult OpenFileDialog::ShowDialog()
-{
-	std::string filterCopy(filter);
+DialogResult OpenFileDialog::show() {
+	std::string filterCopy(_filter);
 	std::replace(filterCopy.begin(), filterCopy.end(), '|', '\0');
+	//WinApi wants two null-chars... don't know why
 	filterCopy += '\0';
 	filterCopy += '\0';
 
@@ -18,13 +17,12 @@ DialogResult OpenFileDialog::ShowDialog()
 	::ZeroMemory(&ofn, sizeof(ofn));
 	ofn.lStructSize = sizeof(ofn);
 	ofn.hwndOwner = NULL;
-	ofn.lpstrFile = filename;
-	ofn.lpstrFile[0] = '\0';
-	ofn.nMaxFile = sizeof(filename);
+	ofn.lpstrFile = _buffer;
+	ofn.nMaxFile = sizeof(_buffer);
 	ofn.lpstrFilter = filterCopy.c_str();
 	ofn.nFilterIndex = 1;
 	ofn.lpstrFileTitle = NULL;
-	ofn.lpstrTitle = text.c_str();
+	ofn.lpstrTitle = _text.c_str();
 	ofn.nMaxFileTitle = 0;
 	ofn.lpstrInitialDir = NULL;
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
@@ -32,18 +30,16 @@ DialogResult OpenFileDialog::ShowDialog()
 	return (::GetOpenFileName(&ofn) == TRUE) ? DialogResult::OK : DialogResult::Cancel;
 }
 
-std::string OpenFileDialog::GetFileName() const
-{
-	return std::string(filename);
+std::string OpenFileDialog::fileName() const {
+	return std::string(_buffer);
 }
 
-void OpenFileDialog::SetText(const std::string & text_)
-{
-	text = text_;
+//TODO:implement these two... maybe?
+void OpenFileDialog::setText(std::string text) {
+	_text = std::move(text);
 }
 
-void OpenFileDialog::SetFilter(const std::string & filter_)
-{
-	filter = filter_;
+void OpenFileDialog::setFilter(std::string filter) {
+ 	_filter = std::move(filter);
 }
 }

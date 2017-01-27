@@ -7,7 +7,7 @@
 #include "Event.hpp"
 #include "Menu.hpp"
 
-namespace Goo
+namespace goo
 {
 enum class BorderStyle
 {
@@ -22,37 +22,40 @@ class Window : public Control
 {
 public:
 	Window() : Control() {}
-	Window(const std::string& text) : text(text), Control() {}
-	Window(const std::string& text, const Point& pos, const Size& size) : text(text), Control(pos, size) {}
+	Window(std::string text) : _text(std::move(text)), Control() {}
+	Window(std::string text, const Point& pos, const Size& size) : _text(std::move(text)), Control(pos, size) {}
 	
-	void CreateControl() override;
-	void Close();
-	void CreateChildren();
-	void AddControl(Control& control);
+	void close();
+	void addControl(Control& control);
 
-	void SetClientArea(const Size& area);
-	Size GetClientArea();
+	Size clientArea();
+	void setClientArea(const Size& area);
 
-	void SetText(const std::string& text_);
-	std::string GetText() { return text; }
+	std::string text() { return _text; }
+	void setText(std::string text);
 
-	Event<CancelToken&> OnClose;
-	Event<> OnDestroy;
-	Event<Size> OnResize;
+	Event<CancelToken&> onClose;
+	Event<> onDestroy;
+	Event<Size> onResize;
 
-	void SetMenuBar(MenuBar* menubar);
-	MenuBar* GetMenuBar() { return menubar; }
+	MenuBar* menuBar() { return _menuBar; }
+	void setMenuBar(MenuBar* menuBar);
 
-	void SetBorderStyle(BorderStyle style);
-	void SetTitleBarButtons(StatusButtons style);
-	BorderStyle GetBorderStyle() { return style; }
+	BorderStyle borderStyle() { return _borderStyle; }
+	void setBorderStyle(BorderStyle style);
+	StatusButtons titleBarButtons() { return _titleButtons; }
+	void setTitleBarButtons(StatusButtons buttons);
+
+protected:
+	void createControl() override;
+	void createChildren();
 
 private:
-	MenuBar* menubar = nullptr;
-	StatusButtons buttons = StatusButtons::Both;
-	BorderStyle style = BorderStyle::Sizeable;
-	std::string text;
+	MenuBar* _menuBar = nullptr;
+	StatusButtons _titleButtons = StatusButtons::Both;
+	BorderStyle _borderStyle = BorderStyle::Sizeable;
+	std::string _text;
 
-	std::vector<Control*>collection;
+	std::vector<Control*> _collection;
 };
 }

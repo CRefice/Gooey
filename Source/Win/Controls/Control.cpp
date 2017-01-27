@@ -1,81 +1,54 @@
 #include "Control.hpp"
 
-namespace Goo
+namespace goo
 {
-Control::Control() : pos(DefaultPosition()), size(DefaultPosition()) {}
-Control::Control(const Point & pos, const Size & size) : pos(pos), size(size) {}
-
-void Control::Create()
-{
-	CreateControl();
-	created = true;
+void Control::setVisible(bool state) {
+	if (!_created) create();
+	::ShowWindow(_handle, state ? SW_SHOW : SW_HIDE);
+}
+bool Control::visible() const {
+	return ::IsWindowVisible(_handle) == TRUE;
 }
 
-void Control::SetVisible(bool state)
-{
-	if (!IsCreated()) Create();
-	::ShowWindow(handle, state ? SW_SHOW : SW_HIDE);
+void Control::setEnabled(bool state) {
+	::EnableWindow(_handle, state);
 }
-bool Control::IsVisible() const
-{
-	return ::IsWindowVisible(handle) == TRUE;
+bool Control::enabled() const {
+	return ::IsWindowEnabled(_handle) == TRUE;
 }
 
-void Control::SetEnabled(bool state)
-{
-	::EnableWindow(handle, state);
+void Control::setParent(const Control* parent) {
+	_parent = parent;
 }
-void Control::Enable()
-{
-	SetEnabled(true);
+void Control::setBounds(const Point& pos, const Size& size) {
+	::MoveWindow(_handle, pos.x, pos.y, size.x, size.y, TRUE);
+	_pos = pos;
+	_size = size;
 }
-void Control::Disable()
-{
-	SetEnabled(false);
+void Control::setPosition(const Point& pos) {
+	setBounds(pos, _size);
 }
-bool Control::IsEnabled() const
-{
-	return ::IsWindowEnabled(handle) == TRUE;
+void Control::setSize(const Size& size) {
+	setBounds(_pos, size);
 }
 
-void Control::SetParent(const Control* parent_)
-{
-	parent = parent_;
-}
-void Control::SetBounds(const Point& pos_, const Size& size_)
-{
-	::MoveWindow(handle, pos_.x, pos_.y, size_.x, size_.y, true);
-	pos = pos_;
-	size = size_;
-}
-void Control::SetPosition(const Point& pos_)
-{
-	SetBounds(pos_, size);
-}
-void Control::SetSize(const Size& size_)
-{
-	SetBounds(pos, size_);
+void Control::setFont(Font font) {
+	::SendMessage(_handle, WM_SETFONT, (WPARAM)(HFONT)(font.handle()), TRUE);
+	_font = font;
 }
 
-void Control::SetFont(const Font& font_)
-{
-	::SendMessage(handle, WM_SETFONT, (WPARAM)(HFONT)(font_.GetHandle()), TRUE);
-	font = font_;
-}
-
-void Control::CreateHandle(const char* name, const std::string& text, long style, long exStyle)
-{
-	if (parent) style |= WS_CHILD;
+void Control::createHandle(const char* name, const std::string& text, long style, long exStyle) {
 	style |= WS_VISIBLE;
+	if (_parent != nullptr) style |= WS_CHILD;
 
-	handle = ::CreateWindowEx(exStyle,
+	_handle = ::CreateWindowEx(exStyle,
 		name, text.c_str(), style,
-		pos.x, pos.y, size.x, size.y,
-		parent ? (HWND)(parent->handle) : NULL,
+		_pos.x, _pos.y, _size.x, _size.y,
+		_parent ? (HWND)(_parent->_handle) : NULL,
 		NULL, ::GetModuleHandle(NULL), NULL);
 
-	if (!handle) throw std::runtime_error("Failed to create handle!");
-	::SendMessage(handle, WM_SETFONT, (WPARAM)(HFONT)(font.GetHandle()), TRUE);
-	::SetProp(handle, "PROP_CONTROL", this);
+	if (_handle == NULL) throw std::runtime_error("Failed to create handle!");
+	::SendMessage(_handle, WM_SETFONT, (WPARAM)(HFONT)(_font.handle()), TRUE);
+	::SetProp(_handle, "PROP_CONTROL", this);
 }
 }

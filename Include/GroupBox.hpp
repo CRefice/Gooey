@@ -4,19 +4,21 @@
 
 #include "Control.hpp"
 
-namespace Goo
+namespace goo
 {
 class GroupBox : public Control
 {
 public:
   GroupBox() : Control() {}
-  GroupBox(const std::string& text) : text(text), Control() {}
-  GroupBox(const std::string& text, const Point& pos, const Size& size) : text(text), Control(pos, size) {}
+  GroupBox(std::string text) : _text(std::move(text)), Control() {}
+  GroupBox(std::string text, const Point& pos, const Size& size) : _text(std::move(text)), Control(pos, size) {}
 
-  void CreateControl() override;
+  void setText(std::string text);
+  std::string text() { return _text; }
 
 private:
-  std::string text;
-  Font font = DefaultFont();
+  void createControl() override;
+
+  std::string _text;
 };
 }

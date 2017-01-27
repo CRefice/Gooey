@@ -14,7 +14,7 @@
 //which conflicts with our MessageBox namespace.
 #undef MessageBox
 
-namespace Goo
+namespace goo
 {
 using NativeControl = HWND;
 using NativeFont = HFONT;
@@ -26,6 +26,6 @@ struct GLContext
   HGLRC hglrc;
 };
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
+LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 }
 #endif

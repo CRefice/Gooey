@@ -3,21 +3,21 @@
 #include "Control.hpp"
 #include "Image.hpp"
 
-namespace Goo
+namespace goo
 {
 class ImageBox : public Control
 {
 public: 
-	ImageBox() : Control(), image() {}
-	ImageBox(const Image& image) : image(image), Control() {}
-	ImageBox(const Image& image, const Point& pos, const Size& size) : image(image), Control(pos, size) {}
+	ImageBox() : Control(), _image() {}
+	ImageBox(Image image) : _image(image), Control() {}
+	ImageBox(Image image, const Point& pos, const Size& size) : _image(std::move(image)), Control(pos, size) {}
 
-	void CreateControl() override;
-
-	void SetImage(const Image& image_);
-	Image GetImage() const { return image; }
+	Image image() const { return _image; }
+	void setImage(Image image);
 
 private:
-	Image image;
+	void createControl() override;
+
+	Image _image;
 };
 }

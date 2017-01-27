@@ -2,15 +2,16 @@
 
 #include "ButtonBase.hpp"
 
-namespace Goo
+namespace goo
 {
 class RadioButton : public ButtonBase
 {
 public:
 	RadioButton() : ButtonBase() {}
-	RadioButton(const std::string& text) : ButtonBase(text) {}
-	RadioButton(const std::string& text, const Point& pos, const Size& size) : ButtonBase(text, pos, size) {}
+	RadioButton(std::string text) : ButtonBase(std::move(text)) {}
+	RadioButton(std::string text, const Point& pos, const Size& size) : ButtonBase(std::move(text), pos, size) {}
 
-	void CreateControl() override;
+private:
+	void createControl() override;
 };
 }

@@ -2,7 +2,7 @@
 
 #include "Handle.hpp"
 
-namespace Goo
+namespace goo
 {
 template<typename T>
 Handle<T>::Handle(const Handle<T>& handle) {

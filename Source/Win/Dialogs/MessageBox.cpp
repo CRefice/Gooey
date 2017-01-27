@@ -2,13 +2,11 @@
 
 #include "MessageBox.hpp"
 
-namespace Goo
+namespace goo
 {
-DialogResult MessageBox::Show(const std::string& text, const std::string& title, MessageBoxIcon icon, MessageBoxButtons buttons)
-{
+DialogResult MessageBox::show(const std::string& text, const std::string& title, MessageBoxIcon icon, MessageBoxButtons buttons) {
 	unsigned long params = 0;
-	switch (buttons)
-	{
+	switch (buttons) {
 	case MessageBoxButtons::AbortRetryIgnore:
 		params |= 0x2;
 		break;
@@ -30,13 +28,11 @@ DialogResult MessageBox::Show(const std::string& text, const std::string& title,
 		break;
 	}
 
-	switch (icon)
-	{
+	switch (icon) {
 	case MessageBoxIcon::Asterisk:
 	case MessageBoxIcon::Information:
 		params |= 0x40;
 		break;
-
 
 	case MessageBoxIcon::Error:
 	case MessageBoxIcon::Hand:
@@ -54,8 +50,7 @@ DialogResult MessageBox::Show(const std::string& text, const std::string& title,
 		break;
 	}
 
-	switch (MessageBoxA(NULL, text.c_str(), title.c_str(), params))
-	{
+	switch (MessageBoxA(NULL, text.c_str(), title.c_str(), params)) {
 	case IDABORT:
 		return DialogResult::Abort;
 

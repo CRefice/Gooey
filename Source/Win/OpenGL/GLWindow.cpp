@@ -3,8 +3,9 @@
 
 #include "GLWindow.hpp"
 
-static void* GetAnyGLFuncAddress(const char* name)
-{
+//Little helper function to get extensions
+//I shouldn't need this really... should I?
+static void* getAnyGLFuncAddress(const char* name) {
 	void *p = (void *)wglGetProcAddress(name);
 	if (p == 0 || (p == (void*)0x1) || (p == (void*)0x2) || (p == (void*)0x3) || (p == (void*)-1))
 	{
@@ -14,14 +15,12 @@ static void* GetAnyGLFuncAddress(const char* name)
 	return p;
 }
 
-namespace Goo
+namespace goo
 {
-void GLWindow::CreateControl()
-{
-	Window::CreateControl();
+void GLWindow::createControl() {
+	Window::createControl();
 
-	PIXELFORMATDESCRIPTOR pfd =
-	{
+	PIXELFORMATDESCRIPTOR pfd = {
 		sizeof(PIXELFORMATDESCRIPTOR),
 		1,
 		PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    //Flags
@@ -40,40 +39,32 @@ void GLWindow::CreateControl()
 		0, 0, 0
 	};
 
-	context.hdc = ::GetDC(GetHandle());
+	_context.hdc = ::GetDC(handle());
 
-	const int format = ::ChoosePixelFormat(context.hdc, &pfd);
-	::SetPixelFormat(context.hdc, format, &pfd);
+	const int format = ::ChoosePixelFormat(_context.hdc, &pfd);
+	::SetPixelFormat(_context.hdc, format, &pfd);
 
-	context.hglrc = wglCreateContext(context.hdc);
-	::wglMakeCurrent(context.hdc, context.hglrc);
+	_context.hglrc = ::wglCreateContext(_context.hdc);
+	::wglMakeCurrent(_context.hdc, _context.hglrc);
 
-	SetViewport({ 0, 0 }, GetClientArea());
+	setViewport({ 0, 0 }, clientArea());
 }
 
-void GLWindow::SwapBuffers()
-{
-	::SwapBuffers(context.hdc);
+void GLWindow::swapBuffers() {
+	::SwapBuffers(_context.hdc);
 }
 
-void GLWindow::SetViewport(const Point& point, const Size& size)
-{
-	glViewport(point.x, point.y, size.x, size.y);
-}
-void GLWindow::SetSize(const Size& size)
-{
-	SetClientArea(size);
+void GLWindow::setViewport(const Point& point, const Size& size) {
+	::glViewport(point.x, point.y, size.x, size.y);
 }
 
-void GLWindow::SetFullscreen()
-{
-
+void GLWindow::setFullscreen(bool enable) {
+//TODO
 }
 
-void GLWindow::SetVsync(bool enable)
-{
+void GLWindow::setVsync(bool enable) {
 	typedef void(*VSyncFunc)(int);
-	VSyncFunc func = (VSyncFunc)GetAnyGLFuncAddress("wglSwapIntervalEXT");
+	VSyncFunc func = (VSyncFunc)getAnyGLFuncAddress("wglSwapIntervalEXT");
 	func(enable);
 }
 }

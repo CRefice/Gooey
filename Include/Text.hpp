@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Goo
+namespace goo
 {
 enum class TextAlignment
 {

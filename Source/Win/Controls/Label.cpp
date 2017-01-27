@@ -1,15 +1,13 @@
 #include "Label.hpp"
 
-namespace Goo
+namespace goo
 {
-void Label::CreateControl()
-{
-	CreateHandle("STATIC", text, SS_LEFT);
+void Label::createControl() {
+	createHandle("STATIC", _text, SS_LEFT);
 }
 
-void Label::SetText(const std::string& text_)
-{
-	::SetWindowText(GetHandle(), text_.c_str());
-	text = text_;
+void Label::setText(std::string text) {
+	::SetWindowText(handle(), text.c_str());
+	_text = std::move(text);
 }
 }
