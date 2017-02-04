@@ -37,10 +37,10 @@ public:
 			}
 		});
 
-		addControl(label);
-		addControl(button);
-		addControl(comboBox);
-		addControl(imgBox);
+		attach(label);
+		attach(button);
+		attach(comboBox);
+		attach(imgBox);
 	}
 
 	Label label{ "This is a label!" };

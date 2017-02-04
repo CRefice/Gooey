@@ -8,6 +8,9 @@
 
 namespace goo
 {
+//Forward declaration for parent container
+class Container;
+
 class Control
 {
 public:
@@ -15,9 +18,9 @@ public:
 	Control(const Point& pos, const Size& size) : _pos(pos), _size(size) {}
 	
 	void create() {
-			createControl();
-			_created = true;
-		}
+		createControl();
+		_created = true;
+	}
 
 	bool created() const { return _created; }
 	
@@ -31,8 +34,9 @@ public:
 	void disable() { setEnabled(false); }
 	bool enabled() const;
 	
-	void setParent(const Control* parent);
-	const Control* parent() const { return _parent; }
+	void setParent(const Container& parent);
+	void unparent();
+	const Container* parent() const { return _parent; }
 	
 	Point position() const { return _pos; }
 	Size size() const { return _size; }
@@ -51,12 +55,11 @@ protected:
 	void createHandle(const char* name, const std::string& text, long style, long exStyle = 0);
 
 private:
-
 	Point _pos;
 	Size _size;
 	Font _font = defaultFont();
 
-	const Control* _parent = nullptr;
+	const Container* _parent = nullptr;
 	bool _created = false;
 	
 	ControlHandle _handle;

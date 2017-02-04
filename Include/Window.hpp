@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "Control.hpp"
+#include "Container.hpp"
 #include "Event.hpp"
 #include "Menu.hpp"
 
@@ -18,15 +18,14 @@ enum class StatusButtons
 	Minimize, Maximize, Both, None
 };
 
-class Window : public Control
+class Window : public Container
 {
 public:
-	Window() : Control() {}
-	Window(std::string text) : _text(std::move(text)), Control() {}
-	Window(std::string text, const Point& pos, const Size& size) : _text(std::move(text)), Control(pos, size) {}
+	Window() : Container() {}
+	Window(std::string text) : _text(std::move(text)), Container() {}
+	Window(std::string text, const Point& pos, const Size& size) : _text(std::move(text)), Container(pos, size) {}
 	
 	void close();
-	void addControl(Control& control);
 
 	Size clientArea();
 	void setClientArea(const Size& area);
@@ -48,14 +47,11 @@ public:
 
 protected:
 	void createControl() override;
-	void createChildren();
 
 private:
 	MenuBar* _menuBar = nullptr;
 	StatusButtons _titleButtons = StatusButtons::Both;
 	BorderStyle _borderStyle = BorderStyle::Sizeable;
 	std::string _text;
-
-	std::vector<Control*> _collection;
 };
 }

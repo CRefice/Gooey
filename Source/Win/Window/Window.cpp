@@ -45,49 +45,34 @@ void Window::createControl() {
 	createHandle(_text.c_str(), _text, wndStyle, exStyle);
 	if (_menuBar) ::SetMenu(handle(), _menuBar->handle());
 
-	for (auto control : _collection)
-		control->create();
+	createChildren();
 }
 
-void Window::close()
-{
+void Window::close() {
 	::DestroyWindow(handle());
 }
 
-void Window::setMenuBar(MenuBar* menubar)
-{
+void Window::setMenuBar(MenuBar* menubar) {
 	::SetMenu(handle(), menubar->handle());
 	_menuBar = menubar;
 }
 
-void Window::setText(std::string text)
-{
+void Window::setText(std::string text) {
 	::SetWindowText(handle(), text.c_str());
 	_text = std::move(text);
 }
 
-void Window::setBorderStyle(BorderStyle style)
-{
+void Window::setBorderStyle(BorderStyle style) {
 	//TODO
 	_borderStyle = style;
 }
 
-void Window::setTitleBarButtons(StatusButtons buttons)
-{
+void Window::setTitleBarButtons(StatusButtons buttons) {
 	//TODO
 	_titleButtons = buttons;
 }
 
-void Window::addControl(Control& control)
-{
-	control.setParent(this);
-	if (created()) control.create();
-
-	_collection.emplace_back(&control);
-}
-
-void Window::setClientArea(const Size& area)
-{
+void Window::setClientArea(const Size& area) {
 	RECT rect;
 	::SetRect(&rect, 0, 0, area.x + 1, area.y + 1);
 
@@ -95,8 +80,7 @@ void Window::setClientArea(const Size& area)
 	Control::setSize({ rect.right - rect.left - 1, rect.bottom - rect.top - 1 });
 }
 
-Size Window::clientArea()
-{
+Size Window::clientArea() {
 	RECT rect;
 	::GetClientRect(handle(), &rect);
 	return Size(rect.right - rect.left, rect.bottom - rect.top);
