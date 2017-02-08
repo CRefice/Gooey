@@ -15,7 +15,6 @@ class Font
 {
 public:
   Font(std::string typeface, int size);
-  explicit Font(FontHandle handle);
   
   FontHandle& handle() { return _handle; }
   const FontHandle& handle() const { return _handle; }

@@ -3,7 +3,7 @@
 namespace goo
 {
 void InputBox::createControl() {
-	createHandle("EDIT", NULL, ES_AUTOHSCROLL, WS_EX_CLIENTEDGE);
+	createHandle("EDIT", "", ES_AUTOHSCROLL, WS_EX_CLIENTEDGE);
 }
 
 std::string InputBox::text() const {

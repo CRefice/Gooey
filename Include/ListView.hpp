@@ -24,8 +24,21 @@ private:
   TextAlignment _alignment = TextAlignment::Center;
 };
 
-//Really lazy, I know, but it does the job fine
-typedef ColumnHeader ListViewItem;
+class ListViewItem
+{
+public:
+	//The string acts as the first subitem.
+	ListViewItem(std::string text) { _subItems.push_back(std::move(text)); }
+	ListViewItem(std::vector<std::string> subItems) : _subItems(std::move(subItems)) {}
+
+	std::vector<std::string> subItems() const { return _subItems; }
+	void setSubItem(int index, std::string text);
+
+private:
+	void doSetSubitem(int index, const std::string& text);
+
+	std::vector<std::string> _subItems;
+};
 
 class ListView : public Control
 {
@@ -36,14 +49,14 @@ public:
   void addColumn(ColumnHeader column);
   void addItem(ListViewItem item);
 
-  std::vector<ColumnHeader> columns() { return _columns; }
-  std::vector<ListViewItem> items() { return _items; }
+  std::vector<ColumnHeader> columns() const { return _columns; }
+  std::vector<ListViewItem> items() const { return _items; }
 
 private:
   void createControl() override;
 
-  void doAddColumn(const ColumnHeader& column);
-  void doAddItem(const ListViewItem& item);
+  void doAddColumn(const ColumnHeader& column, int index);
+  void doAddItem(const ListViewItem& item, int index);
 
   std::vector<ColumnHeader> _columns;
   std::vector<ListViewItem> _items;

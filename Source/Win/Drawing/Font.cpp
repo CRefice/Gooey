@@ -2,9 +2,6 @@
 
 namespace goo
 {
-//TODO: remember to set members for this!
-Font::Font(FontHandle handle) : _handle(handle) {}
-
 Font::Font(std::string typeface, int size) : _typeface(std::move(typeface)), _size(size) {
 	_handle = ::CreateFont(_size, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE,
 		ANSI_CHARSET, OUT_TT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
