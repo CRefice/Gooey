@@ -50,9 +50,12 @@ Handle<NativeImage>::~Handle()
 {
 	::DeleteObject((HGDIOBJ)_handle);
 }
+template<>
+Handle<NativeLayout>::~Handle() {}
 
 template struct Handle<NativeControl>;
 template struct Handle<NativeFont>;
 template struct Handle<NativeMenu>;
 template struct Handle<NativeImage>;
+template struct Handle<NativeLayout>;
 }

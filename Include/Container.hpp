@@ -19,10 +19,13 @@ public:
 
 	std::vector<Control*> children() { return _items; }
 
+	LayoutHandle& layout() { return _layout; }
+
 protected:
 	void createChildren();
 
 private:
 	std::vector<Control*> _items;
+	LayoutHandle _layout;
 };
 }

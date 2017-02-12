@@ -38,11 +38,15 @@ public:
 	void unparent();
 	const Container* parent() const { return _parent; }
 	
-	Point position() const { return _pos; }
-	Size size() const { return _size; }
-	void setBounds(const Point& pos, const Size& size);
 	void setPosition(const Point& pos);
 	void setSize(const Size& size);
+	void setBounds(const Point& pos, const Size& size) {
+		setPosition(pos);
+		setSize(size);
+	}
+
+	Point position() const { return _pos; }
+	Size size() const { return _size; }
 	
 	Font font() { return _font; }
 	void setFont(Font font);

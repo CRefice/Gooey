@@ -28,4 +28,5 @@ using ControlHandle = Handle<NativeControl>;
 using FontHandle = Handle<NativeFont>;
 using MenuHandle = Handle<NativeMenu>;
 using ImageHandle = Handle<NativeImage>;
+using LayoutHandle = Handle<NativeLayout>;
 }
