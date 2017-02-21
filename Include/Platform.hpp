@@ -20,7 +20,7 @@ using NativeControl = HWND;
 using NativeFont = HFONT;
 using NativeMenu = HMENU;
 using NativeImage = HBITMAP;
-using NativeLayout = void* //WinApi doesn't use layouts
+using NativeLayout = void*; //WinApi doesn't use layouts
 struct GLContext
 {
   HDC hdc;

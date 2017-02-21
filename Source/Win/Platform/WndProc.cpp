@@ -1,5 +1,6 @@
-#include "Button.hpp"
 #include "ComboBox.hpp"
+#include "Button.hpp"
+#include "Slider.hpp"
 #include "Window.hpp"
 
 #include "Platform.hpp"
@@ -53,7 +54,24 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 		if (sender) sender->onResize({ LOWORD(lparam), HIWORD(lparam) });
 		return 0;
 	}
-
+	case WM_HSCROLL:
+	case WM_VSCROLL: {
+		switch(LOWORD(wparam)) {
+			case TB_BOTTOM:
+			case TB_ENDTRACK:
+			case TB_LINEDOWN:
+			case TB_LINEUP:
+			case TB_PAGEDOWN:
+			case TB_PAGEUP:
+			case TB_THUMBPOSITION:
+			case TB_THUMBTRACK:
+			case TB_TOP:
+			{
+				Slider* slider = ptrFromHandle<Slider>((HWND)lparam);
+				slider->onValueChanged(slider->value());
+			}
+		}
+	}
 	default:
 		return ::DefWindowProc(hwnd, msg, wparam, lparam);
 	}

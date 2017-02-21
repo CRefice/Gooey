@@ -22,16 +22,14 @@ void Control::setParent(const Container& parent) {
 	::SetParent(_handle, parent.handle());
 	_parent = &parent;
 }
-void Control::setBounds(const Point& pos, const Size& size) {
-	::MoveWindow(_handle, pos.x, pos.y, size.x, size.y, TRUE);
-	_pos = pos;
-	_size = size;
-}
+
 void Control::setPosition(const Point& pos) {
-	setBounds(pos, _size);
+	::MoveWindow(_handle, pos.x, pos.y, _size.x, _size.y, TRUE);
+	_pos = pos;
 }
 void Control::setSize(const Size& size) {
-	setBounds(_pos, size);
+	::MoveWindow(_handle, size.x, size.y, _pos.x, _pos.y, TRUE);
+	_size = size;
 }
 
 void Control::setFont(Font font) {
