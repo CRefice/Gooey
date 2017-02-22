@@ -1,12 +1,4 @@
-#include <App.hpp>
-#include <Button.hpp>
-#include <FileDialog.hpp>
-#include <Window.hpp>
-#include <ComboBox.hpp>
-#include <ImageBox.hpp>
-#include <InputBox.hpp>
-#include <ListView.hpp>
-#include <Label.hpp>
+#include <Gooey.hpp>
 
 using namespace goo;
 
@@ -22,7 +14,7 @@ public:
 		button.setBounds({ 120, 220 }, { 80, 25 });
 		imgBox.setBounds({ 110, 100 }, { 100, 100 });
 		listView.setBounds({ 280, 15 }, { 200, 200 });
-		inputBox.setBounds({ 280, 235 }, { 200, 20 });
+		slider.setBounds({ 280, 235 }, { 200, 30 });
 
 		comboBox.addItem("This is an item!");
 		comboBox.addItem("This is also an item!");
@@ -32,18 +24,23 @@ public:
 		listView.addColumn(ColumnHeader("Header 3", 60));
 		listView.addItem(ListViewItem("SubItem 1"));
 
-		comboBox.onSelectionChanged.setHandler([this](int index)
-		{
+		onDestroy.setHandler([]() {
+			std::quick_exit(0);
+		});
+
+		comboBox.onSelectionChanged.setHandler([this](int index) {
 			label.setText("Selected item #" + std::to_string(index)
 				+ "\nItem text: " + comboBox.selectedString());
 		});
-		button.onClick.setHandler([this]()
-		{
+		button.onClick.setHandler([this]() {
 			OpenFileDialog dlg{ "Open an image file", "Bitmap files (*.bmp)|*.bmp" };
 			if (dlg.show() == DialogResult::OK)
 			{
 				imgBox.setImage(Image(dlg.fileName()));
 			}
+		});
+		slider.onValueChanged.setHandler([this](int val) {
+			label.setText(std::to_string(val) + '%');
 		});
 
 		attach(label);
@@ -51,7 +48,7 @@ public:
 		attach(comboBox);
 		attach(imgBox);
 		attach(listView);
-		attach(inputBox);
+		attach(slider);
 	}
 
 	Label label{ "This is a label!" };
@@ -59,7 +56,7 @@ public:
 	ComboBox comboBox;
 	ImageBox imgBox;
 	ListView listView;
-	InputBox inputBox;
+	Slider slider;
 };
 
 int main()
