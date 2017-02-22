@@ -69,8 +69,10 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 			{
 				Slider* slider = ptrFromHandle<Slider>((HWND)lparam);
 				slider->onValueChanged(slider->value());
+				break;
 			}
 		}
+		return 0;
 	}
 	default:
 		return ::DefWindowProc(hwnd, msg, wparam, lparam);
