@@ -11,7 +11,7 @@ public:
 	OpenFileDialog(std::string text, std::string filter) : _text(std::move(text)), _filter(std::move(filter)) {}
 
 	DialogResult show();
-	std::string fileName() const;
+	std::string filename() const;
 
 	void setText(std::string text);
 	std::string text() const { return _text; }

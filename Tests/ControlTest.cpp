@@ -36,7 +36,7 @@ public:
 			OpenFileDialog dlg{ "Open an image file", "Bitmap files (*.bmp)|*.bmp" };
 			if (dlg.show() == DialogResult::OK)
 			{
-				imgBox.setImage(Image(dlg.fileName()));
+				imgBox.setImage(Image(dlg.filename()));
 			}
 		});
 		slider.onValueChanged.setHandler([this](int val) {

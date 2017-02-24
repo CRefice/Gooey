@@ -30,7 +30,7 @@ DialogResult OpenFileDialog::show() {
 	return (::GetOpenFileName(&ofn) == TRUE) ? DialogResult::OK : DialogResult::Cancel;
 }
 
-std::string OpenFileDialog::fileName() const {
+std::string OpenFileDialog::filename() const {
 	return std::string(_buffer);
 }
 
