@@ -1,5 +1,9 @@
 #pragma once
 
+#ifndef MAX_PATH
+#define MAX_PATH 512
+#endif
+
 #include "Dialog.hpp"
 
 namespace goo
@@ -21,6 +25,6 @@ public:
 private:
 	std::string _text;
 	std::string _filter;
-	char _buffer[0x100] = { 0 };
+	char _buffer[MAX_PATH] = { 0 };
 };
 }
