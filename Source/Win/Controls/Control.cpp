@@ -3,6 +3,11 @@
 
 namespace goo
 {
+void Control::close() {
+	::DestroyWindow(handle());
+	_created = false;
+}
+
 void Control::setVisible(bool state) {
 	if(!created()) create();
 	::ShowWindow(_handle, state ? SW_SHOW : SW_HIDE);

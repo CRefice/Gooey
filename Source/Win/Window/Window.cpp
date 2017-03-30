@@ -48,10 +48,6 @@ void Window::createControl() {
 	createChildren();
 }
 
-void Window::close() {
-	::DestroyWindow(handle());
-}
-
 void Window::setMenuBar(MenuBar* menubar) {
 	::SetMenu(handle(), menubar->handle());
 	_menuBar = menubar;

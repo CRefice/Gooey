@@ -24,8 +24,6 @@ public:
 	Window() : Container() {}
 	Window(std::string text) : _text(std::move(text)), Container() {}
 	Window(std::string text, const Point& pos, const Size& size) : _text(std::move(text)), Container(pos, size) {}
-	
-	void close();
 
 	Size clientArea();
 	void setClientArea(const Size& area);

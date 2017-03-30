@@ -21,7 +21,7 @@ public:
 		createControl();
 		_created = true;
 	}
-
+	void close();
 	bool created() const { return _created; }
 	
 	void setVisible(bool state);
