@@ -16,6 +16,7 @@ class Control
 public:
 	Control() : _pos(defaultPosition()), _size(defaultSize()) {}
 	Control(const Point& pos, const Size& size) : _pos(pos), _size(size) {}
+	virtual ~Control() {};
 	
 	void create() {
 		createControl();
