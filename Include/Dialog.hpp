@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace goo
+namespace Goo
 {
 enum class DialogResult
 {

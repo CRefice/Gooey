@@ -2,12 +2,12 @@
 
 #include "Platform.hpp"
 
-namespace goo
+namespace Goo
 {
 template<typename T>
-struct Handle
+class Handle
 {
-	Handle() : _handle(nullptr) {}
+public:
 	Handle(T handle) : _handle(handle) {}
 	Handle(const Handle& handle);
 	Handle(Handle&& handle) = default;
@@ -21,7 +21,7 @@ struct Handle
 	operator const T() const { return _handle; }
 
 private:
-	 T _handle;
+	T _handle = nullptr;
 };
 
 using ControlHandle = Handle<NativeControl>;

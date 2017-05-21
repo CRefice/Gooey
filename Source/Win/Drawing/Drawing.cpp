@@ -2,7 +2,7 @@
 
 #include "Drawing.hpp"
 
-namespace goo
+namespace Goo
 {
 Point defaultPosition() {
 	return{ CW_USEDEFAULT, CW_USEDEFAULT };

@@ -4,27 +4,30 @@
 
 #include "App.hpp"
 
-namespace goo
+namespace Goo
 {
-	void App::run() {
-		MSG msg;
-		while (::GetMessage(&msg, NULL, 0, 0) != 0) {
-			::TranslateMessage(&msg);
-			::DispatchMessage(&msg);
-		}
+namespace App
+{
+void run() {
+	MSG msg;
+	while (::GetMessage(&msg, NULL, 0, 0) != 0) {
+		::TranslateMessage(&msg);
+		::DispatchMessage(&msg);
 	}
+}
 
-	void App::quit() {
-		::PostQuitMessage(0);
-	}
+void quit() {
+	::PostQuitMessage(0);
+}
 
-	void App::pollEvents() {
-		MSG Msg;
-		while (::PeekMessage(&Msg, NULL, 0, 0, PM_REMOVE)) {
-			::TranslateMessage(&Msg);
-			::DispatchMessage(&Msg);
-		}
+void pollEvents() {
+	MSG Msg;
+	while (::PeekMessage(&Msg, NULL, 0, 0, PM_REMOVE)) {
+		::TranslateMessage(&Msg);
+		::DispatchMessage(&Msg);
 	}
+}
+}
 }
 
 #pragma comment(linker, "\"/manifestdependency:type='win32' \

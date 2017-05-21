@@ -1,6 +1,6 @@
 #include "Font.hpp"
 
-namespace goo
+namespace Goo
 {
 Font::Font(std::string typeface, int size) : _typeface(std::move(typeface)), _size(size) {
 	_handle = ::CreateFont(_size, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE,

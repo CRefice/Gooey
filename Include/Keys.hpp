@@ -2,7 +2,7 @@
 
 #include "Drawing.hpp"
 
-namespace goo
+namespace Goo
 {
 enum class Key : uint8_t
 {

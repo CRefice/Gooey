@@ -2,7 +2,7 @@
 
 #include "Dialog.hpp"
 
-namespace goo
+namespace Goo
 {
 enum class MessageBoxButtons
 {

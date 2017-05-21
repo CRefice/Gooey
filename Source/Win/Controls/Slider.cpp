@@ -1,6 +1,6 @@
 #include "Slider.hpp"
 
-namespace goo
+namespace Goo
 {
 void Slider::createControl() {
 	long style = _layoutStyle == SliderLayoutStyle::Vertical ? TBS_VERT : TBS_HORZ;

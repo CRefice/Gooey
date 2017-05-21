@@ -2,7 +2,7 @@
 
 #include <functional>
 
-namespace goo
+namespace Goo
 {
 template<typename ...Args>
 class Event

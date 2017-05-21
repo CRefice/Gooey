@@ -6,7 +6,7 @@
 #include "Font.hpp"
 #include "Handle.hpp"
 
-namespace goo
+namespace Goo
 {
 //Forward declaration for parent container
 class Container;

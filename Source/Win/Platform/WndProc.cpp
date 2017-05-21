@@ -5,12 +5,12 @@
 
 #include "Platform.hpp"
 
-namespace goo
+namespace Goo
 {
 template<typename T>
 static T* ptrFromHandle(HWND handle) {
 	//dynamic_cast should work... research
-	return static_cast<T*>(::GetProp(handle, "PROP_CONTROL"));
+	return dynamic_cast<T*>(::GetProp(handle, "PROP_CONTROL"));
 }
 
 LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {

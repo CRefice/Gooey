@@ -1,6 +1,6 @@
 #include "ImageBox.hpp"
 
-namespace goo
+namespace Goo
 {
 void ImageBox::createControl() {
 	createHandle("STATIC", "", SS_BITMAP);

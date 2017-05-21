@@ -2,7 +2,7 @@
 
 #include "ButtonBase.hpp"
 
-namespace goo
+namespace Goo
 {
 class RadioButton : public ButtonBase
 {

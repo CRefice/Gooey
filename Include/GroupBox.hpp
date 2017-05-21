@@ -4,7 +4,7 @@
 
 #include "Control.hpp"
 
-namespace goo
+namespace Goo
 {
 class GroupBox : public Control
 {

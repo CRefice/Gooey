@@ -1,6 +1,6 @@
 #include "Button.hpp"
 
-namespace goo
+namespace Goo
 {
 void Button::createControl() {
 	createHandle("BUTTON", text(), BS_PUSHBUTTON);

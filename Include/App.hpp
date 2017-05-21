@@ -1,9 +1,10 @@
 #pragma once
 
-namespace goo
+namespace Goo
 {
 namespace App
 {
+public:
 	void run();
 	void quit();
 	void pollEvents();

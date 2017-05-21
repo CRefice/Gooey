@@ -6,7 +6,7 @@
 #include "Font.hpp"
 #include "Event.hpp"
 
-namespace goo
+namespace Goo
 {
 class ButtonBase : public Control
 {

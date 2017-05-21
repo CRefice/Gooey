@@ -1,6 +1,6 @@
 #include "GroupBox.hpp"
 
-namespace goo
+namespace Goo
 {
 void GroupBox::createControl() {
 	createHandle("BUTTON", _text, BS_GROUPBOX);

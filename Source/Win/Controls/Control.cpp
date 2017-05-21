@@ -1,7 +1,7 @@
 #include "Container.hpp"
 #include "Control.hpp"
 
-namespace goo
+namespace Goo
 {
 void Control::close() {
 	::DestroyWindow(handle());

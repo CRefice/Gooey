@@ -2,7 +2,7 @@
 
 #include "Window.hpp"
 
-namespace goo
+namespace Goo
 {
 class GLWindow : public Window
 {

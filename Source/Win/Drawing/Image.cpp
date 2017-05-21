@@ -3,7 +3,7 @@
 
 #include "Image.hpp"
 
-namespace goo
+namespace Goo
 {
 Image::Image(const std::string& filePath) {
 	//Find file extension and lowercase it.

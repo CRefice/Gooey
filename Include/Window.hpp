@@ -7,7 +7,7 @@
 #include "Event.hpp"
 #include "Menu.hpp"
 
-namespace goo
+namespace Goo
 {
 enum class BorderStyle
 {

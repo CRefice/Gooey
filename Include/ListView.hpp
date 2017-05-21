@@ -5,7 +5,7 @@
 #include "Control.hpp"
 #include "Text.hpp"
 
-namespace goo
+namespace Goo
 {
 class ColumnHeader
 {

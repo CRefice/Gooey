@@ -1,6 +1,6 @@
 #include "ComboBox.hpp"
 
-namespace goo
+namespace Goo
 {
 void ComboBox::createControl() {
 	createHandle(WC_COMBOBOX, "", CBS_DROPDOWNLIST | CBS_HASSTRINGS);

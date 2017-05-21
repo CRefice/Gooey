@@ -5,7 +5,7 @@
 #include "Event.hpp"
 #include "Handle.hpp"
 
-namespace goo
+namespace Goo
 {
 class MenuItem
 {

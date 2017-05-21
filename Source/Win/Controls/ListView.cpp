@@ -4,7 +4,7 @@
 
 #include "ListView.hpp"
 
-namespace goo
+namespace Goo
 {
 void ListView::createControl() {
 	createHandle(WC_LISTVIEW, "", LVS_EDITLABELS | LVS_REPORT, WS_EX_CLIENTEDGE);

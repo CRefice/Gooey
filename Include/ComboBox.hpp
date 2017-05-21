@@ -6,7 +6,7 @@
 #include "Control.hpp"
 #include "Event.hpp"
 
-namespace goo
+namespace Goo
 {
 class ComboBox : public Control
 {

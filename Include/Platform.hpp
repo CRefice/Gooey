@@ -14,7 +14,7 @@
 //which conflicts with our MessageBox namespace.
 #undef MessageBox
 
-namespace goo
+namespace Goo
 {
 using NativeControl = HWND;
 using NativeFont = HFONT;
@@ -33,7 +33,7 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 #elif defined(__linux__) //Should probably check for GTK in CMake instead.
 #include <gtk/gtk.h>
 	
-namespace goo
+namespace Goo
 {
 using NativeControl = GtkWidget*;
 using NativeFont = PangoFont*;

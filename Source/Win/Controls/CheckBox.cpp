@@ -1,6 +1,6 @@
 #include "CheckBox.hpp"
 
-namespace goo
+namespace Goo
 {
 void CheckBox::createControl() {
 	createHandle("BUTTON", _text, BS_AUTOCHECKBOX);

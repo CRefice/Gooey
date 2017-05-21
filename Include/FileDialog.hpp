@@ -6,7 +6,7 @@
 
 #include "Dialog.hpp"
 
-namespace goo
+namespace Goo
 {
 class OpenFileDialog
 {

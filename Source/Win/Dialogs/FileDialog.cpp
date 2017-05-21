@@ -4,7 +4,7 @@
 
 #include "Filedialog.hpp"
 
-namespace goo
+namespace Goo
 {
 DialogResult OpenFileDialog::show() {
 	std::string filterCopy(_filter);

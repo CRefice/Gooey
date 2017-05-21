@@ -5,7 +5,7 @@
 #include "Control.hpp"
 #include "Font.hpp"
 
-namespace goo
+namespace Goo
 {
 class Label : public Control
 {

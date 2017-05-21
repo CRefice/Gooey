@@ -2,7 +2,7 @@
 
 #include "Keys.hpp"
 
-namespace goo
+namespace Goo
 {
 bool keyDown(Key key) {
 	//TODO: give more information...?

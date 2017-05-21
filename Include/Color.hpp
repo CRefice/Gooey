@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace goo
+namespace Goo
 {
 struct Color
 {

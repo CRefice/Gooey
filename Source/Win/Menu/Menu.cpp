@@ -2,11 +2,12 @@
 
 #include "Menu.hpp"
 
-namespace goo
+namespace Goo
 {
 static int totalId = 0;
 
 //Classic C++ trick: wrapping a static in a function
+//This hack is so bad, holy crap, please find another way to do this
 static std::vector<MenuItem*>& staticVec() {
   static std::vector<MenuItem*> vec;
   return vec;
@@ -23,7 +24,6 @@ void TextItem::setChecked(bool state) {
 }
 
 SeparatorItem::SeparatorItem() : MenuItem(nullptr, MF_SEPARATOR, 0) {}
-
 
 Menu::Menu() : _handle(::CreateMenu()) {}
 

@@ -1,6 +1,6 @@
 #include "RadioButton.hpp"
 
-namespace goo
+namespace Goo
 {
 void RadioButton::createControl() {
 	createHandle("BUTTON", _text, BS_AUTORADIOBUTTON);

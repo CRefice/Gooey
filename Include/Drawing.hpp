@@ -1,6 +1,6 @@
 #pragma once
 
-namespace goo
+namespace Goo
 {
 struct Point
 {

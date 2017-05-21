@@ -3,7 +3,7 @@
 #include "Control.hpp"
 #include "Event.hpp"
 
-namespace goo
+namespace Goo
 {
 enum class SliderLayoutStyle {
 	Horizontal, Vertical

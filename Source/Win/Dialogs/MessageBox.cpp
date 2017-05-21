@@ -2,7 +2,7 @@
 
 #include "MessageBox.hpp"
 
-namespace goo
+namespace Goo
 {
 DialogResult MessageBox::show(const std::string& text, const std::string& title, MessageBoxIcon icon, MessageBoxButtons buttons) {
 	unsigned long params = 0;

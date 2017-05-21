@@ -2,7 +2,7 @@
 
 #include "Control.hpp"
 
-namespace goo
+namespace Goo
 {
 class InputBox : public Control
 {

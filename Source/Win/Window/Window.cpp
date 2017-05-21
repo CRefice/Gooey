@@ -2,7 +2,7 @@
 
 #include "Window.hpp"
 
-namespace goo
+namespace Goo
 {
 void Window::createControl() {
 	WNDCLASSEX wclass;

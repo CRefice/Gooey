@@ -4,7 +4,7 @@
 
 #include "Handle.hpp"
 
-namespace goo
+namespace Goo
 {
 enum class FontStyle
 {

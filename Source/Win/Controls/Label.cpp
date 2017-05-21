@@ -1,6 +1,6 @@
 #include "Label.hpp"
 
-namespace goo
+namespace Goo
 {
 void Label::createControl() {
 	createHandle("STATIC", _text, SS_LEFT);

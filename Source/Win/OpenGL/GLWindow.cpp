@@ -15,7 +15,7 @@ static void* getAnyGLFuncAddress(const char* name) {
 	return p;
 }
 
-namespace goo
+namespace Goo
 {
 void GLWindow::createControl() {
 	Window::createControl();

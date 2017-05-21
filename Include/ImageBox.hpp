@@ -3,7 +3,7 @@
 #include "Control.hpp"
 #include "Image.hpp"
 
-namespace goo
+namespace Goo
 {
 class ImageBox : public Control
 {

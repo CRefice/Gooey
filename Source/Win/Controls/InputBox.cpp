@@ -1,6 +1,6 @@
 #include "InputBox.hpp"
 
-namespace goo
+namespace Goo
 {
 void InputBox::createControl() {
 	createHandle("EDIT", "", ES_AUTOHSCROLL, WS_EX_CLIENTEDGE);

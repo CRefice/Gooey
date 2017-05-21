@@ -2,7 +2,7 @@
 
 #include "Container.hpp"
 
-namespace goo
+namespace Goo
 {
 void Container::attach(Control& control) {
 	control.setParent(*this);
