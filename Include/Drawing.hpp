@@ -1,55 +1,80 @@
 #pragma once
 
-#include <cstdint>
-
 namespace goo
 {
 struct Point
 {
-  inline Point() : x(0), y(0) {}
   inline Point(int x, int y) : x(x), y(y) {}
-
-  int x, y;
-
-  inline Point& operator+=(const Point& rhs) {
-		x += rhs.x;
-		y += rhs.y;
-		return *this;
-	}
-  inline Point& operator-=(const Point& rhs) {
-	  x -= rhs.x;
-	  y -= rhs.y;
-	  return *this;
-  }
+  int x = 0, y = 0;
 };
 
-inline Point operator+(Point lhs, const Point& rhs) {
-	return lhs += rhs;
-}
-inline Point operator-(Point lhs, const Point& rhs) {
-	return lhs -= rhs;
-}
-
-//lazy, I know, but... eh, whatever.
-//remind me to implement this later.
-typedef Point Size;
+struct Size
+{
+  inline Size(int x, int y) : x(x), y(y) {}
+  int x = 0, y = 0;
+};
 
 Point defaultPosition();
 Size defaultSize();
 
-struct Color
-{
-  uint8_t r, g, b;
+inline Point& operator+=(Point& lhs, const Point& rhs) {
+	lhs.x += rhs.x;
+	lhs.y += rhs.y;
+	return lhs;
+}
 
-  Color(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b) {}
+inline Point& operator-=(Point& lhs, const Point& rhs) {
+	lhs.x -= rhs.x;
+	lhs.y -= rhs.y;
+	return lhs;
+}
 
-  static Color red();
-  static Color green();
-  static Color blue();
+//Points cannot be multiplied by points
+inline Point& operator*=(Point& lhs, const Size& rhs) {
+	lhs.x *= rhs.x;
+	lhs.y *= rhs.y;
+	return lhs;
+}
 
-  static Color black();
-  static Color white();
+inline Point operator+(Point lhs, const Point& rhs) {
+	return lhs += rhs;
+}
 
-  static Color control();
-};
+inline Point operator-(Point lhs, const Point& rhs) {
+	return lhs -= rhs;
+}
+
+inline Point operator*(Point lhs, const Size& rhs) {
+	return lhs *= rhs;
+}
+
+inline Size& operator+=(Size& lhs, const Size& rhs) {
+	lhs.x += rhs.x;
+	lhs.y += rhs.y;
+	return lhs;
+}
+
+inline Size& operator-=(Size& lhs, const Size& rhs) {
+	lhs.x -= rhs.x;
+	lhs.y -= rhs.y;
+	return lhs;
+}
+
+inline Size& operator*=(Size& lhs, const Size& rhs) {
+	lhs.x *= rhs.x;
+	lhs.y *= rhs.y;
+	return lhs;
+}
+
+inline Size operator+(Size lhs, const Size& rhs) {
+	return lhs += rhs;
+}
+
+inline Size operator-(Size lhs, const Size& rhs) {
+	return lhs -= rhs;
+}
+
+inline Size operator*(Size lhs, const Size& rhs) {
+	return lhs *= rhs;
+}
 }
