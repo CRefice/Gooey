@@ -1,6 +1,6 @@
 #include <Gooey.hpp>
 
-using namespace goo;
+using namespace Goo;
 
 class MyWindow : public Window
 {

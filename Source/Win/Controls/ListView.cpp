@@ -20,6 +20,7 @@ void ListView::addColumn(ColumnHeader column) {
 	doAddColumn(column, _columns.size());
 	_columns.push_back(std::move(column));
 }
+
 void ListView::addItem(ListViewItem item) {
 	doAddItem(item, _items.size());
 	_items.push_back(std::move(item));

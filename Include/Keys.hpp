@@ -1,10 +1,8 @@
 #pragma once
 
-#include "Drawing.hpp"
-
 namespace Goo
 {
-enum class Key : uint8_t
+enum class Key : unsigned char
 {
   MouseL = 0x01,
   MouseR = 0x02,
@@ -102,6 +100,4 @@ enum class Key : uint8_t
 };
 
 bool keyDown(Key key);
-
-Point mousePosition();
 }

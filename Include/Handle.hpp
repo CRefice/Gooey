@@ -8,6 +8,7 @@ template<typename T>
 class Handle
 {
 public:
+	Handle() : _handle(nullptr) {}
 	Handle(T handle) : _handle(handle) {}
 	Handle(const Handle& handle);
 	Handle(Handle&& handle) = default;

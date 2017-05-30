@@ -53,9 +53,9 @@ Handle<NativeImage>::~Handle()
 template<>
 Handle<NativeLayout>::~Handle() {}
 
-template struct Handle<NativeControl>;
-template struct Handle<NativeFont>;
-template struct Handle<NativeMenu>;
-template struct Handle<NativeImage>;
-template struct Handle<NativeLayout>;
+template class Handle<NativeControl>;
+template class Handle<NativeFont>;
+template class Handle<NativeMenu>;
+template class Handle<NativeImage>;
+template class Handle<NativeLayout>;
 }
