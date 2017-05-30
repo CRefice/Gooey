@@ -21,10 +21,10 @@ void quit() {
 }
 
 void pollEvents() {
-	MSG Msg;
-	while (::PeekMessage(&Msg, NULL, 0, 0, PM_REMOVE)) {
-		::TranslateMessage(&Msg);
-		::DispatchMessage(&Msg);
+	MSG msg;
+	while (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+		::TranslateMessage(&msg);
+		::DispatchMessage(&msg);
 	}
 }
 }

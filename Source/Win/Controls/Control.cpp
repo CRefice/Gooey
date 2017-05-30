@@ -37,6 +37,18 @@ void Control::setSize(const Size& size) {
 	_size = size;
 }
 
+void Control::position() const {
+	RECT rect;
+	if(::GetWindowRect(_handle, &rect) == 0) return _pos;
+	else return { (int)rect.left, (int)rect.top };
+}
+
+void Control::size() const {
+	RECT rect;
+	if(::GetWindowRect(_handle, &rect) == 0) return _size;
+	else return { (int)(rect.right - rect.left), (int)(rect.bottom - rect.top)};
+}
+
 void Control::setFont(Font font) {
 	::SendMessage(_handle, WM_SETFONT, (WPARAM)(HFONT)(font.handle()), TRUE);
 	_font = font;

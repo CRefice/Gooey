@@ -46,8 +46,8 @@ public:
 		setSize(size);
 	}
 
-	Point position() const { return _pos; }
-	Size size() const { return _size; }
+	Point position() const;
+	Size size() const;
 	
 	Font font() { return _font; }
 	void setFont(Font font);
