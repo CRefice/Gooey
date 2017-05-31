@@ -3,7 +3,12 @@ project(Gooey)
 
 option(GOOEY_BUILD_EXAMPLES "Build and install all examples" OFF)
 
-include_directories(Include)
+macro(add_gooey_executable target sources)
+	add_executable(${target} WIN32 ${sources})
+	if(WIN32)
+		set_target_properties(${target} PROPERTIES LINK_FLAGS "/ENTRY:mainCRTStartup")
+	endif()
+endmacro()
 
 add_subdirectory(Source)
 
