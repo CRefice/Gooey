@@ -16,6 +16,18 @@ void run() {
 	}
 }
 
+void run(Window& wnd) {
+	wnd.show();
+	MSG msg;
+	while (::GetMessage(&msg, NULL, 0, 0) != 0) {
+		if(msg.message == WM_CLOSE && msg.hwnd == wnd.handle()) {
+			quit();
+		}
+		::TranslateMessage(&msg);
+		::DispatchMessage(&msg);
+	}
+}
+
 void quit() {
 	::PostQuitMessage(0);
 }

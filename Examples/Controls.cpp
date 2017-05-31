@@ -62,6 +62,5 @@ public:
 int main()
 {
 	MyWindow wnd;
-	wnd.show();
-	App::run();
+	App::run(wnd);
 }
