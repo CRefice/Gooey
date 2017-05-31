@@ -15,8 +15,7 @@ if (GOOEY_BUILD_OPENGL)
 	file(GLOB GLSources "${PLATFORM_DIR}/OpenGL/*.cpp")
 endif()
 
-target_include_directories(Gooey PRIVATE "${PROJECT_SOURCE_DIR}/Include")
-
 add_library (Gooey ${Sources} ${GLSources})
+target_include_directories(Gooey PRIVATE "${PROJECT_SOURCE_DIR}/Include")
 
 install(TARGETS Gooey DESTINATION Lib)
