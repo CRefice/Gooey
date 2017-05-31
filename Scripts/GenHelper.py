@@ -9,6 +9,9 @@ dirpath = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..', 'Inclu
 with open(os.path.join(dirpath, 'Gooey.hpp'), 'w', encoding='utf-8') as write_file:
     write_file.write(("//This is a helper include file that includes most (all) controls for you.\n\n"))
 
-    for filename in os.listdir(dirpath):
-        if filename.endswith('.hpp') and filename != 'Gooey.hpp'
-        write_file.write('#include "{}"\n'.format(filename))
+    for root, subdirs, files in os.walk(dirpath):
+        for file in files:
+            if file.endswith('.hpp') and file != 'Gooey.hpp':
+                filename = os.path.join(root, file)
+                path = os.path.relpath(filename, dirpath)
+                write_file.write('#include "{}"\n'.format(path))
