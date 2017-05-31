@@ -16,16 +16,13 @@
 
 namespace Goo
 {
+//Type definitions
 using NativeControl = HWND;
 using NativeFont = HFONT;
 using NativeMenu = HMENU;
 using NativeImage = HBITMAP;
 using NativeLayout = void*; //WinApi doesn't use layouts
-struct GLContext
-{
-  HDC hdc;
-  HGLRC hglrc;
-};
+using GLContext = HGLRC;
 
 LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 }
@@ -40,11 +37,8 @@ using NativeFont = PangoFont*;
 using NativeMenu = GtkMenuShell*;
 using NativeImage = GtkPixbuf*;
 using NativeLayout = GtkContainer*;
-struct GLContext
-{
-  //HDC hdc;
-  //HGLRC hglrc;
-};
+using GLContext =; 
+
 
 #else
 #error "You're on an unsupported platform. Sorry!"

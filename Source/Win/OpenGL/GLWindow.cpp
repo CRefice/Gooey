@@ -1,7 +1,7 @@
 #include "Platform.hpp"
 #include <gl\GL.h>
 
-#include "GLWindow.hpp"
+#include "OpenGL/GLWindow.hpp"
 
 //Little helper function to get extensions
 //I shouldn't need this really... should I?
@@ -18,6 +18,23 @@ static void* getAnyGLFuncAddress(const char* name) {
 namespace Goo
 {
 void GLWindow::createControl() {
+	std::string classText = text();
+
+	//Need to register the window first,
+	//in order to override the class style.
+	WNDCLASSEX wclass;
+	::ZeroMemory(&wclass, sizeof(wclass));
+	wclass.cbSize = sizeof(wclass);
+	wclass.style = CS_OWNDC;
+	wclass.lpfnWndProc = wndProc;
+	wclass.hIcon = ::LoadIcon(NULL, IDI_APPLICATION);
+	wclass.hCursor = ::LoadCursor(NULL, IDC_ARROW);
+	wclass.hInstance = ::GetModuleHandle(NULL);
+	wclass.hbrBackground = ::CreateSolidBrush(RGB(0, 0, 0));
+	wclass.lpszClassName = classText.c_str();
+	::RegisterClassEx(&wclass);
+
+	//Window registration will now fail, but no worries!
 	Window::createControl();
 
 	PIXELFORMATDESCRIPTOR pfd = {
@@ -39,19 +56,19 @@ void GLWindow::createControl() {
 		0, 0, 0
 	};
 
-	_context.hdc = ::GetDC(handle());
+	HDC hdc = ::GetDC(handle());
 
-	const int format = ::ChoosePixelFormat(_context.hdc, &pfd);
-	::SetPixelFormat(_context.hdc, format, &pfd);
+	const int format = ::ChoosePixelFormat(hdc, &pfd);
+	::SetPixelFormat(hdc, format, &pfd);
 
-	_context.hglrc = ::wglCreateContext(_context.hdc);
-	::wglMakeCurrent(_context.hdc, _context.hglrc);
+	_context = ::wglCreateContext(hdc);
+	::wglMakeCurrent(hdc, _context);
 
 	setViewport({ 0, 0 }, clientArea());
 }
 
 void GLWindow::swapBuffers() {
-	::SwapBuffers(_context.hdc);
+	::SwapBuffers(::GetDC(handle()));
 }
 
 void GLWindow::setViewport(const Point& point, const Size& size) {

@@ -1,9 +1,20 @@
 if (WIN32)
-	file (GLOB_RECURSE Sources "Win/*.cpp")
+	set (PLATFORM_DIR Win)
 else ()
-	file (GLOB_RECURSE Sources "Gtk/*.cpp")
-endif (WIN32)
+	set (PLATFORM_DIR Gtk)
+endif ()
 
-add_library (Gooey ${Sources})
+file (GLOB Sources "${PLATFORM_DIR}/*.cpp")
+
+find_package (OpenGL)
+if (OPENGL_FOUND)
+option (GOOEY_BUILD_OPENGL "Build the OpenGL platform abstraction layer" ON)
+endif ()
+
+if (GOOEY_BUILD_OPENGL)
+	file(GLOB GLSources "${PLATFORM_DIR}/OpenGL/*.cpp")
+endif()
+
+add_library (Gooey ${Sources} ${GLSources})
 
 install(TARGETS Gooey DESTINATION Lib)

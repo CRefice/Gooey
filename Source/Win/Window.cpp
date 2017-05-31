@@ -14,10 +14,9 @@ void Window::createControl() {
 	wclass.hInstance = ::GetModuleHandle(NULL);
 	wclass.hbrBackground = ::GetSysColorBrush(COLOR_3DFACE);
 	wclass.lpszClassName = _text.c_str();
-
 	::RegisterClassEx(&wclass);
 
-	long wndStyle = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION | CS_OWNDC;
+	long wndStyle = WS_OVERLAPPED | WS_SYSMENU | WS_CAPTION;
 	long exStyle = 0;
 
 	switch (_borderStyle) {
