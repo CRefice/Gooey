@@ -24,10 +24,6 @@ public:
 		listView.addColumn(ColumnHeader("Header 3", 60));
 		listView.addItem(ListViewItem("SubItem 1"));
 
-		onDestroy.setHandler([]() {
-			std::quick_exit(0);
-		});
-
 		comboBox.onSelectionChanged.setHandler([this](int index) {
 			label.setText("Selected item #" + std::to_string(index)
 				+ "\nItem text: " + comboBox.selectedString());

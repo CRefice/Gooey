@@ -20,7 +20,7 @@ void run(Window& wnd) {
 	wnd.show();
 	MSG msg;
 	while (::GetMessage(&msg, NULL, 0, 0) != 0) {
-		if(msg.message == WM_CLOSE && msg.hwnd == wnd.handle()) {
+		if (!::IsWindow(wnd.handle())) {
 			quit();
 		}
 		::TranslateMessage(&msg);
