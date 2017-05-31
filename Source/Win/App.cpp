@@ -18,11 +18,10 @@ void run() {
 
 void run(Window& wnd) {
 	wnd.show();
+	wnd.onDestroy.setHandler(quit);
+
 	MSG msg;
 	while (::GetMessage(&msg, NULL, 0, 0) != 0) {
-		if (!::IsWindow(wnd.handle())) {
-			quit();
-		}
 		::TranslateMessage(&msg);
 		::DispatchMessage(&msg);
 	}
