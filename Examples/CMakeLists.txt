@@ -1,5 +1,6 @@
 add_executable(ControlsExample WIN32 Controls.cpp)
 target_link_libraries(ControlsExample Gooey)
+target_include_directories(ControlsExample PRIVATE "${PROJECT_SOURCE_DIR}/Include");
 
 if(WIN32)
 	set_target_properties(ControlsExample PROPERTIES LINK_FLAGS "/ENTRY:mainCRTStartup")
