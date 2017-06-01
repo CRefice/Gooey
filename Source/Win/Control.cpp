@@ -8,7 +8,7 @@ void Control::close() {
 	_created = false;
 }
 
-bool Control::closed() {
+bool Control::closed() const {
 	return !::IsWindow(handle());
 }
 
