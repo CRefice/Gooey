@@ -24,6 +24,7 @@ public:
 	}
 	void close();
 	bool created() const { return _created; }
+	bool closed() const;
 	
 	void setVisible(bool state);
 	void show() { setVisible(true); }

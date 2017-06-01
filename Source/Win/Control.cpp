@@ -8,6 +8,10 @@ void Control::close() {
 	_created = false;
 }
 
+bool Control::closed() {
+	return !::IsWindow(handle());
+}
+
 void Control::setVisible(bool state) {
 	if(!created()) create();
 	::ShowWindow(_handle, state ? SW_SHOW : SW_HIDE);
