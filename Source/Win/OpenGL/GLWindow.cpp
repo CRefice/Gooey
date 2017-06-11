@@ -76,7 +76,18 @@ void GLWindow::setViewport(const Point& point, const Size& size) {
 }
 
 void GLWindow::setFullscreen(bool enable) {
-//TODO
+	if(enable) {
+		const int w = GetSystemMetrics(SM_CXSCREEN);
+		const int h = GetSystemMetrics(SM_CYSCREEN);
+		::SetWindowLongPtr(handle(), GWL_STYLE, WS_VISIBLE | WS_POPUP);
+		::SetWindowPos(handle(), HWND_TOP, 0, 0, w, h, SWP_FRAMECHANGED);
+	} else {
+		::SetWindowLongPtr(handle(), GWL_STYLE, WS_VISIBLE | WS_OVERLAPPEDWINDOW);
+		::InvalidateRect(handle(), NULL, TRUE);
+		Point pos_ = position();
+		Size size_ = size();
+		::glViewport(pos_.x, pos_.y, size_.x, size_.y);
+	}
 }
 
 void GLWindow::setVsync(bool enable) {

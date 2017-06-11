@@ -7,8 +7,6 @@ namespace Goo
 class GLWindow : public Window
 {
 public:
-	void createContext();
-
   void swapBuffers();
 
 	GLContext& context() { return _context; }
