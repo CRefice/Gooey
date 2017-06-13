@@ -31,6 +31,9 @@ public:
 	void hide() { setVisible(false); }
 	bool visible() const;
 	
+	void setVisibleOnCreate(bool state) { _createVisible = state; }
+	bool visibleOnCreate() const { return _createVisible; }
+	
 	void setEnabled(bool state);
 	void enable() { setEnabled(true); }
 	void disable() { setEnabled(false); }
@@ -67,6 +70,7 @@ private:
 
 	const Container* _parent = nullptr;
 	bool _created = false;
+	bool _createVisible = false;
 	
 	ControlHandle _handle;
 };

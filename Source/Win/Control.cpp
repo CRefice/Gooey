@@ -59,7 +59,7 @@ void Control::setFont(Font font) {
 }
 
 void Control::createHandle(const char* name, const std::string& text, long style, long exStyle) {
-	style |= WS_VISIBLE;
+	if (_createVisible) style |= WS_VISIBLE;
 	if (_parent != nullptr) style |= WS_CHILD;
 
 	_handle = ::CreateWindowEx(exStyle,
