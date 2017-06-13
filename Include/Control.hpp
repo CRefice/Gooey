@@ -70,7 +70,7 @@ private:
 
 	const Container* _parent = nullptr;
 	bool _created = false;
-	bool _createVisible = false;
+	bool _createVisible = true;
 	
 	ControlHandle _handle;
 };
