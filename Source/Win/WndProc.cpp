@@ -74,6 +74,14 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 		}
 		return 0;
 	}
+	case WM_SETCURSOR: {
+		if (LOWORD(lparam) == HTCLIENT && !sender->cursorVisible()) {
+			SetCursor(NULL);
+			return 1;
+		}
+
+		return DefWindowProc(hwnd, msg, wparam, lparam);
+	}
 	default:
 		return ::DefWindowProc(hwnd, msg, wparam, lparam);
 	}

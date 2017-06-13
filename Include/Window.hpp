@@ -31,6 +31,9 @@ public:
 	std::string text() { return _text; }
 	void setText(std::string text);
 
+	void setCursorVisibility(bool status) { _cursorVisible = status; }
+	bool cursorVisible() { return _cursorVisible; }
+
 	Event<CancelToken&> onClose;
 	Event<> onDestroy;
 	Event<Size> onResize;
@@ -51,5 +54,6 @@ private:
 	StatusButtons _titleButtons = StatusButtons::Both;
 	BorderStyle _borderStyle = BorderStyle::Sizeable;
 	std::string _text;
+	bool _cursorVisible = true;
 };
 }
